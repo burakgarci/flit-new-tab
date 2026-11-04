@@ -30,6 +30,18 @@ test('new tab works end to end', { skip: !chromium && 'playwright not installed'
     const folderId = await page.evaluate(async () => (await chrome.storage.local.get('folderId')).folderId);
     assert.ok(folderId);
 
+    // Broken settings fall back to defaults instead of breaking the page
+    const fixed = await page.evaluate(() => FLIT.merge(FLIT.D, { theme: 'x', cols: '9', bg: { dim: 'a', color: 'red;}', image: '../x' }, lang: '<b>' }));
+    assert.deepStrictEqual(fixed, await page.evaluate(() => FLIT.D));
+
+    // Unsafe addresses never become tiles
+    await page.evaluate(async id => {
+      await chrome.bookmarks.create({ parentId: id, title: 'js', url: 'javascript:alert(1)' });
+      await chrome.bookmarks.create({ parentId: id, title: 'data', url: 'data:text/html,hi' });
+    }, folderId);
+    await page.waitForTimeout(400);
+    assert.strictEqual(await page.locator('.tile[href^="javascript:"], .tile[href^="data:"]').count(), 0);
+
     // Bookmarks added anywhere show up as tiles
     await page.evaluate(async id => {
       for (const n of await chrome.bookmarks.getChildren(id)) await chrome.bookmarks.remove(n.id);

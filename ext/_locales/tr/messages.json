@@ -376,5 +376,8 @@
   },
   "use": {
     "message": "Kullan"
+  },
+  "failed": {
+    "message": "Bir şeyler ters gitti. Lütfen tekrar dene."
   }
 }

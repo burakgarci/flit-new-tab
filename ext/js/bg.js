@@ -31,7 +31,10 @@ export async function showStored() {
   F.bg(S, objUrl);
   changed();
 }
-export async function show() { F.bg(S); await showStored(); showCredit(); changed(); }
+export async function show() {
+  if (!stored() && objUrl) { URL.revokeObjectURL(objUrl); objUrl = null; }
+  F.bg(S); await showStored(); showCredit(); changed();
+}
 export const pick = bg => { save({ bg }); show(); };
 
 export const askBg = async file => { if (await ask(t('setAsBg'), t('use'))) setCustom(file); };
@@ -57,8 +60,12 @@ export async function bing(force) {                       // once a day; the new
     const mkt = lang() === 'tr' ? 'tr-TR' : 'en-US';
     const im = (await (await fetch(`https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=${mkt}`, ANON)).json()).images[0];
     const size = screen.width * devicePixelRatio > 1920 ? '_UHD.jpg' : '_1920x1080.jpg';
-    const blob = await (await fetch('https://www.bing.com' + im.urlbase + size, ANON)).blob();
-    await putRec('bing', { blob, day, credit: { name: im.title || im.copyright, loc: im.copyright, page: im.copyrightlink } });
+    const src = new URL(im.urlbase + size, 'https://www.bing.com');
+    if (src.origin !== 'https://www.bing.com') return false;
+    const blob = await (await fetch(src, ANON)).blob();
+    if (!blob.type.startsWith('image/')) return false;
+    const page = /^https:\/\//.test(im.copyrightlink) ? im.copyrightlink : '';
+    await putRec('bing', { blob, day, credit: { name: String(im.title || im.copyright || 'Bing'), loc: String(im.copyright || ''), page } });
     return true;
   } catch { return false; }
 }

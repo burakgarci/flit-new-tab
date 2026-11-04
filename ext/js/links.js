@@ -38,7 +38,7 @@ export async function useFolder(n) {
 export async function refresh() {
   const kids = folderId && (await chrome.bookmarks.getChildren(folderId).catch(() => null));
   if (!kids) { if (!(await boot())) lost(); return; }
-  nodes = kids.filter(n => n.url && !/^javascript:/i.test(n.url));
+  nodes = kids.filter(n => n.url && F.safe(n.url));
   const json = JSON.stringify(list());
   if (json !== localStorage.getItem('flit:links')) { localStorage.setItem('flit:links', json); render(); }
 }
@@ -56,8 +56,8 @@ export async function create() {                        // "Other bookmarks" ›
   const f = await chrome.bookmarks.create({ parentId: other.id, title: 'Flit' });
   let top = [];
   try { top = await chrome.topSites.get(); } catch {}
-  for (const s of top.filter(s => /^https?:/.test(s.url)).slice(0, 8))
-    await chrome.bookmarks.create({ parentId: f.id, title: s.title, url: s.url });
+  for (const s of top.filter(s => fixUrl(s.url)).slice(0, 8))
+    await chrome.bookmarks.create({ parentId: f.id, title: String(s.title || '').slice(0, 300), url: fixUrl(s.url) });
   await useFolder(f);
   await refresh();
 }
@@ -68,10 +68,10 @@ export async function legacy(n) {                       // v1 users: their "btab
 }
 
 let later;
-const soon = () => { clearTimeout(later); later = setTimeout(refresh, 60); };
+const soon = () => { clearTimeout(later); later = setTimeout(() => refresh().catch(() => {}), 60); };
 const mine = (...ids) => folderId && ids.includes(folderId);
 chrome.bookmarks.onCreated.addListener((id, n) => mine(n.parentId) && soon());
-chrome.bookmarks.onRemoved.addListener((id, i) => (id === folderId ? boot().then(n => n || lost()) : mine(i.parentId) && soon()));
+chrome.bookmarks.onRemoved.addListener((id, i) => (id === folderId ? boot().then(n => n || lost()).catch(() => {}) : mine(i.parentId) && soon()));
 chrome.bookmarks.onChanged.addListener((id, c) => (id === folderId ? chrome.storage.sync.set({ folderName: c.title }) : soon()));
 chrome.bookmarks.onMoved.addListener((id, m) => (id === folderId ? soon() : mine(m.parentId, m.oldParentId) && soon()));
 chrome.bookmarks.onChildrenReordered.addListener(id => mine(id) && soon());
@@ -86,7 +86,8 @@ async function del(n) {
   await chrome.bookmarks.remove(n.id);
   toast(t('deleted'), t('undo'), () => chrome.bookmarks.create({ parentId: n.parentId, index: n.index, title: n.title, url: n.url }), 6000);
 }
-const open = url => (S.newTab ? chrome.tabs.create({ url }) : (location.href = url));
+const web = u => /^https?:/i.test(u);
+const open = url => (S.newTab ? chrome.tabs.create({ url }) : web(url) ? (location.href = url) : chrome.tabs.update({ url }));
 
 /* Add / edit dialog */
 const dlg = $('#dlg'), fTitle = dlg.querySelector('[name=title]'), fUrl = dlg.querySelector('[name=url]');
@@ -127,7 +128,11 @@ document.addEventListener('contextmenu', e => {
     [t('settings'), () => settings()]
   ].filter(x => x !== false));
 });
-document.addEventListener('click', e => { if (at(e).closest('#add-tile')) edit(); });
+document.addEventListener('click', e => {
+  if (at(e).closest('#add-tile')) return edit();
+  const a = at(e).closest('.tile[href]');                 // chrome://, file:// … can't be opened by a plain link from this page
+  if (a && !web(a.href) && e.button === 0) { e.preventDefault(); open(a.href); }
+});
 
 /* Drag to reorder; drop a link to add it, an image to use it as background */
 const links = $('#links');

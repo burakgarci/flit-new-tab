@@ -23,8 +23,11 @@ export function show(n) {
 }
 go.onclick = async () => {
   go.disabled = true;
-  if (!found) await L.create();
-  await chrome.storage.local.set({ welcomed: 1 });
-  W.hidden = true; W.classList.remove('open'); go.disabled = false;
+  try {
+    if (!found) await L.create();
+    await chrome.storage.local.set({ welcomed: 1 });
+  } catch { return toast(t('failed')); }
+  finally { go.disabled = false; }
+  W.hidden = true; W.classList.remove('open');
   if (found) L.legacy(found); else toast(t('created'), null, null, 10000);
 };

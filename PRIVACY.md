@@ -9,11 +9,11 @@
 - **Bookmarks** — to show, add, edit, reorder and delete links in the one folder you use with Flit. On first run it creates that folder. It never touches other bookmarks, and Reset never deletes any.
 - **Most visited sites** — read once, only when you press “Get started”, to fill the new folder. Not stored or sent anywhere.
 - **Storage** — your settings. If your browser's sync is on, the browser copies them to your other devices under its maker's privacy policy (for Chrome, [Google's](https://policies.google.com/privacy)). Your own image and the Bing image are kept only on this device.
-- **Site icons** — read from the browser's local icon cache. No request is made for them.
+- **Site icons** — come from the browser's own icon cache; Flit never requests them from the sites.
 
-## Network requests
+## Internet requests
 
-None by default. If you choose **Bing image of the day**, you are asked for access to bing.com; after that Flit downloads the day's image once a day. Flit sends nothing about you with this request — no cookies, bookmarks or settings — but like any connection, Microsoft can see your IP address and browser type. Microsoft's [privacy statement](https://privacy.microsoft.com/privacystatement) applies to that request, and Bing images belong to their owners. To stop it, pick another background, or reset background images under Settings › Data, which also removes the access.
+By default Flit makes no requests to the internet. If you choose **Bing image of the day**, you are asked for access to bing.com; after that Flit downloads the day's image once a day. Flit sends nothing about you with this request — no cookies, bookmarks or settings — but like any connection, Microsoft can see your IP address and browser type. Microsoft's [privacy statement](https://privacy.microsoft.com/privacystatement) applies to that request, and Bing images belong to their owners. To stop it, pick another background, or reset background images under Settings › Data, which also removes the access.
 
 ## Links you open
 
@@ -40,11 +40,11 @@ Questions: [GitHub issues](https://github.com/burakgarci/flit-new-tab/issues).
 - **Yer imleri** — Flit ile kullandığın tek klasördeki bağlantıları göstermek, eklemek, düzenlemek, sıralamak ve silmek için. İlk açılışta bu klasörü oluşturur. Diğer yer imlerine dokunmaz; Sıfırla hiçbirini silmez.
 - **En çok ziyaret edilen siteler** — yalnızca “Başla”ya bastığında, yeni klasörü doldurmak için bir kez okunur. Saklanmaz, hiçbir yere gönderilmez.
 - **Depolama** — ayarların. Tarayıcının senkronizasyonu açıksa tarayıcı bunları, yapımcısının gizlilik politikası kapsamında (Chrome için [Google'ınki](https://policies.google.com/privacy?hl=tr)) diğer cihazlarına kopyalar. Eklediğin resim ve Bing resmi yalnızca bu cihazda tutulur.
-- **Site simgeleri** — Tarayıcının yerel simge önbelleğinden okunur. Bunlar için istek yapılmaz.
+- **Site simgeleri** — tarayıcının kendi simge önbelleğinden gelir; Flit bunları sitelerden istemez.
 
-### Ağ istekleri
+### İnternet istekleri
 
-Varsayılan olarak hiç yok. **Bing günün resmi**ni seçersen bing.com erişimi için izin istenir; sonrasında Flit günün resmini günde bir kez indirir. Bu istekle senin hakkında hiçbir şey gönderilmez — çerez, yer imi ya da ayar yok — ama her bağlantıda olduğu gibi Microsoft IP adresini ve tarayıcı türünü görebilir. Bu istek için Microsoft'un [gizlilik bildirimi](https://privacy.microsoft.com/tr-tr/privacystatement) geçerlidir; Bing resimleri sahiplerine aittir. Durdurmak için başka bir arka plan seç ya da Ayarlar › Veri bölümünden arka plan resimlerini sıfırla; bu, erişimi de kaldırır.
+Varsayılan olarak Flit internete hiçbir istek yapmaz. **Bing günün resmi**ni seçersen bing.com erişimi için izin istenir; sonrasında Flit günün resmini günde bir kez indirir. Bu istekle senin hakkında hiçbir şey gönderilmez — çerez, yer imi ya da ayar yok — ama her bağlantıda olduğu gibi Microsoft IP adresini ve tarayıcı türünü görebilir. Bu istek için Microsoft'un [gizlilik bildirimi](https://privacy.microsoft.com/tr-tr/privacystatement) geçerlidir; Bing resimleri sahiplerine aittir. Durdurmak için başka bir arka plan seç ya da Ayarlar › Veri bölümünden arka plan resimlerini sıfırla; bu, erişimi de kaldırır.
 
 ### Açtığın bağlantılar
 

@@ -91,7 +91,10 @@ $('#file').onchange = e => { const f = e.target.files[0]; if (f) B.setCustom(f);
 const auto = new Option(t('langAuto'), 'auto'); auto.dataset.i18n = 'langAuto';
 $('#lang').replaceChildren(auto, ...Object.entries(LANGS).map(([k, v]) => new Option(v, k)));
 $('#lang').onchange = e => change('lang', e.target.value);
-$('#folder').onchange = async e => { const [n] = await chrome.bookmarks.get(e.target.value); await L.useFolder(n); L.refresh(); };
+$('#folder').onchange = async e => {
+  try { const [n] = await chrome.bookmarks.get(e.target.value); await L.useFolder(n); await L.refresh(); }
+  catch { toast(t('failed')); folders(); }                  // the folder was deleted meanwhile
+};
 async function folders() {
   const out = [];
   const walk = (ns, path) => ns.forEach(n => {
@@ -125,22 +128,22 @@ $('#export').onclick = async () => {
 $('#import').onchange = async e => {
   const file = e.target.files[0]; e.target.value = '';
   let j;
-  try { j = JSON.parse(await file.text()); if (!j || typeof j !== 'object' || !(j.settings || j.links || j.image)) throw 0; }
+  try { if (!file || file.size > 30e6) throw 0; j = JSON.parse(await file.text()); if (!j || typeof j !== 'object' || !(j.settings || j.links || j.image)) throw 0; }
   catch { return toast(t('badFile')); }
   const done = [];
   if (j.settings && typeof j.settings === 'object') { replace(j.settings); save({}); done.push(t('doneSettings')); }
   if (Array.isArray(j.links) && L.folderId) {
     const have = new Set(L.nodes.map(n => n.url));
     let n = 0;
-    for (const l of j.links) {
-      const url = L.fixUrl(l?.url);
+    for (const l of j.links.slice(0, 2000)) {
+      const url = typeof l?.url === 'string' && l.url.length < 4096 && L.fixUrl(l.url);
       if (!url || have.has(url)) continue;
-      await chrome.bookmarks.create({ parentId: L.folderId, title: String(l.title || '') || L.host(url), url });
+      await chrome.bookmarks.create({ parentId: L.folderId, title: String(l.title || '').slice(0, 300) || L.host(url), url });
       have.add(url); n++;
     }
     done.push(t('doneLinks', n));
   }
-  if (typeof j.image === 'string' && j.image.startsWith('data:image/')) {
+  if (typeof j.image === 'string' && /^data:image\/(png|jpeg|webp|gif|avif);base64,/.test(j.image)) {
     await B.setCustom(await (await fetch(j.image)).blob(), !j.settings);
     done.push(t('doneImage'));
   }

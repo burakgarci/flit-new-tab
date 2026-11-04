@@ -376,5 +376,8 @@
   },
   "use": {
     "message": "Use"
+  },
+  "failed": {
+    "message": "Something went wrong. Please try again."
   }
 }

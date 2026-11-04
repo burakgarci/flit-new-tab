@@ -1,260 +1,293 @@
 {
- "extName": {
-  "message": "Flit Yeni Sekme"
- },
- "extDesc": {
-  "message": "Favori Linkler, İlk Tıkta. Seçtiğin yer imleri her yeni sekmede — hızlı, sade, gizli."
- },
- "slogan": {
-  "message": "Favori Linkler, İlk Tıkta"
- },
- "welcomeText": {
-  "message": "Favori bağlantıların, sekmeyi açtığın anda. Başlamak için bir yer imi klasörü oluşturup en çok ziyaret ettiğin sitelerle dolduracağız."
- },
- "start": {
-  "message": "Başla"
- },
- "created": {
-  "message": "“Flit” klasörünü Diğer yer imleri altında oluşturduk. İstediğin gibi adlandırabilirsin, yeter ki silme."
- },
- "legacyFound": {
-  "message": "btab klasörün çalışmaya devam ediyor. Adı artık önemli değil."
- },
- "renameToFlit": {
-  "message": "Adını Flit yap"
- },
- "empty": {
-  "message": "Henüz bağlantı yok. Buraya bir URL yapıştır (Ctrl+V), bir link bırak ya da sağ tıklayıp ekle."
- },
- "open": {
-  "message": "Aç"
- },
- "openTab": {
-  "message": "Yeni sekmede aç"
- },
- "openWindow": {
-  "message": "Yeni pencerede aç"
- },
- "openPrivate": {
-  "message": "Gizli pencerede aç"
- },
- "edit": {
-  "message": "Düzenle"
- },
- "copyUrl": {
-  "message": "URL'yi kopyala"
- },
- "delete": {
-  "message": "Sil"
- },
- "addLink": {
-  "message": "Bağlantı ekle"
- },
- "settings": {
-  "message": "Ayarlar"
- },
- "title": {
-  "message": "Başlık"
- },
- "url": {
-  "message": "URL"
- },
- "save": {
-  "message": "Kaydet"
- },
- "cancel": {
-  "message": "Vazgeç"
- },
- "deleted": {
-  "message": "Bağlantı silindi"
- },
- "undo": {
-  "message": "Geri al"
- },
- "copied": {
-  "message": "URL kopyalandı"
- },
- "added": {
-  "message": "Bağlantı eklendi"
- },
- "setAsBg": {
-  "message": "Bu resim arka plan yapılsın mı?"
- },
- "yes": {
-  "message": "Evet"
- },
- "secFolder": {
-  "message": "Klasör"
- },
- "secLook": {
-  "message": "Görünüm"
- },
- "secBg": {
-  "message": "Arka plan"
- },
- "secBehavior": {
-  "message": "Davranış"
- },
- "secLang": {
-  "message": "Dil"
- },
- "secData": {
-  "message": "Veri"
- },
- "secAbout": {
-  "message": "Hakkında"
- },
- "density": {
-  "message": "Yoğunluk"
- },
- "compact": {
-  "message": "Kompakt"
- },
- "normal": {
-  "message": "Normal"
- },
- "wide": {
-  "message": "Geniş"
- },
- "columns": {
-  "message": "Kolon"
- },
- "auto": {
-  "message": "Otomatik"
- },
- "align": {
-  "message": "Konum"
- },
- "top": {
-  "message": "Üst"
- },
- "middle": {
-  "message": "Orta"
- },
- "bottom": {
-  "message": "Alt"
- },
- "theme": {
-  "message": "Tema"
- },
- "dark": {
-  "message": "Koyu"
- },
- "light": {
-  "message": "Açık"
- },
- "system": {
-  "message": "Sistem"
- },
- "addTile": {
-  "message": "“+” kutusunu göster"
- },
- "images": {
-  "message": "Resimler"
- },
- "gradient": {
-  "message": "Gradyan"
- },
- "color": {
-  "message": "Renk"
- },
- "ownImage": {
-  "message": "Kendi resmin"
- },
- "chooseFile": {
-  "message": "Dosya seç…"
- },
- "bing": {
-  "message": "Bing günün resmi"
- },
- "fit": {
-  "message": "Sığdırma"
- },
- "fill": {
-  "message": "Doldur"
- },
- "contain": {
-  "message": "Sığdır"
- },
- "center": {
-  "message": "Ortala"
- },
- "dim": {
-  "message": "Karartma"
- },
- "blur": {
-  "message": "Bulanıklık"
- },
- "credit": {
-  "message": "Fotoğraf bilgisini göster"
- },
- "download": {
-  "message": "Duvar kağıdını indir"
- },
- "newTabLinks": {
-  "message": "Bağlantıları yeni sekmede aç"
- },
- "shortcuts": {
-  "message": "Alt+1–9 bağlantıları açar"
- },
- "export": {
-  "message": "Dışa aktar"
- },
- "import": {
-  "message": "İçe aktar"
- },
- "imported": {
-  "message": "Ayarlar içe aktarıldı"
- },
- "badFile": {
-  "message": "Bu dosya okunamadı"
- },
- "privacy": {
-  "message": "Gizlilik politikası"
- },
- "photoBy": {
-  "message": "Fotoğraf: $1 · Unsplash"
- },
- "profile": {
-  "message": "Profil"
- },
- "photoPage": {
-  "message": "Fotoğraf"
- },
- "chooseFolder": {
-  "message": "Yer imi klasörü"
- },
- "loading": {
-  "message": "Yükleniyor…"
- },
- "bingFail": {
-  "message": "Bing resmi yüklenemedi"
- },
- "close": {
-  "message": "Kapat"
- },
- "langAuto": {
-  "message": "Otomatik"
- },
- "reset": {
-  "message": "Ayarları sıfırla"
- },
- "resetAsk": {
-  "message": "Tüm Flit ayarları varsayılana dönsün mü? Yer imlerine dokunulmaz."
- },
- "order": {
-  "message": "Sıralama"
- },
- "byColumn": {
-  "message": "Sütun sütun"
- },
- "byRow": {
-  "message": "Satır satır"
- },
- "scaling": {
-  "message": "Ölçekleme"
- },
- "resetShort": {
-  "message": "Sıfırla"
- }
+  "extName": {
+    "message": "Flit Yeni Sekme"
+  },
+  "extDesc": {
+    "message": "Favori Linkler, İlk Tıkta. Seçtiğin yer imleri her yeni sekmede — hızlı, sade, gizli."
+  },
+  "slogan": {
+    "message": "Favori Linkler, İlk Tıkta"
+  },
+  "welcomeText": {
+    "message": "Favori bağlantıların, sekmeyi açtığın anda."
+  },
+  "start": {
+    "message": "Başla"
+  },
+  "created": {
+    "message": "Hazır! Bağlantıların Diğer yer imleri › Flit klasöründe. Klasörün adını ya da yerini istediğin zaman değiştirebilirsin."
+  },
+  "legacyFound": {
+    "message": "Bağlantıların eski btab klasöründen geliyor. Adını değiştirmek ister misin?"
+  },
+  "renameToFlit": {
+    "message": "Adını Flit yap"
+  },
+  "openTab": {
+    "message": "Yeni sekmede aç"
+  },
+  "openWindow": {
+    "message": "Yeni pencerede aç"
+  },
+  "openPrivate": {
+    "message": "Gizli pencerede aç"
+  },
+  "edit": {
+    "message": "Düzenle"
+  },
+  "copyUrl": {
+    "message": "URL'yi kopyala"
+  },
+  "delete": {
+    "message": "Sil"
+  },
+  "addLink": {
+    "message": "Bağlantı ekle"
+  },
+  "settings": {
+    "message": "Ayarlar"
+  },
+  "title": {
+    "message": "Başlık"
+  },
+  "url": {
+    "message": "URL"
+  },
+  "save": {
+    "message": "Kaydet"
+  },
+  "cancel": {
+    "message": "Vazgeç"
+  },
+  "deleted": {
+    "message": "Bağlantı silindi"
+  },
+  "undo": {
+    "message": "Geri al"
+  },
+  "copied": {
+    "message": "URL kopyalandı"
+  },
+  "added": {
+    "message": "Bağlantı eklendi"
+  },
+  "setAsBg": {
+    "message": "Bu resim arka plan yapılsın mı?"
+  },
+  "yes": {
+    "message": "Evet"
+  },
+  "secLook": {
+    "message": "Görünüm"
+  },
+  "secBg": {
+    "message": "Arka plan"
+  },
+  "secBehavior": {
+    "message": "Davranış"
+  },
+  "secLang": {
+    "message": "Dil"
+  },
+  "secData": {
+    "message": "Veri"
+  },
+  "secAbout": {
+    "message": "Hakkında"
+  },
+  "density": {
+    "message": "Yoğunluk"
+  },
+  "compact": {
+    "message": "Kompakt"
+  },
+  "normal": {
+    "message": "Normal"
+  },
+  "wide": {
+    "message": "Geniş"
+  },
+  "columns": {
+    "message": "Kolon"
+  },
+  "auto": {
+    "message": "Otomatik"
+  },
+  "align": {
+    "message": "Konum"
+  },
+  "top": {
+    "message": "Üst"
+  },
+  "middle": {
+    "message": "Orta"
+  },
+  "bottom": {
+    "message": "Alt"
+  },
+  "theme": {
+    "message": "Tema"
+  },
+  "dark": {
+    "message": "Koyu"
+  },
+  "light": {
+    "message": "Açık"
+  },
+  "system": {
+    "message": "Sistem"
+  },
+  "addTile": {
+    "message": "“+” kutusunu göster"
+  },
+  "images": {
+    "message": "Resimler"
+  },
+  "gradient": {
+    "message": "Gradyan"
+  },
+  "color": {
+    "message": "Renk"
+  },
+  "ownImage": {
+    "message": "Kendi resmin"
+  },
+  "bing": {
+    "message": "Bing günün resmi"
+  },
+  "fill": {
+    "message": "Doldur"
+  },
+  "contain": {
+    "message": "Sığdır"
+  },
+  "center": {
+    "message": "Ortala"
+  },
+  "dim": {
+    "message": "Karartma"
+  },
+  "blur": {
+    "message": "Bulanıklık"
+  },
+  "credit": {
+    "message": "Fotoğraf bilgisini göster"
+  },
+  "download": {
+    "message": "İndir"
+  },
+  "newTabLinks": {
+    "message": "Bağlantıları yeni sekmede aç"
+  },
+  "shortcuts": {
+    "message": "Alt+1–9 bağlantıları açar"
+  },
+  "export": {
+    "message": "Dışa aktar"
+  },
+  "import": {
+    "message": "İçe aktar"
+  },
+  "imported": {
+    "message": "Ayarlar içe aktarıldı"
+  },
+  "badFile": {
+    "message": "Bu dosya okunamadı"
+  },
+  "privacy": {
+    "message": "Gizlilik politikası"
+  },
+  "profile": {
+    "message": "Profil"
+  },
+  "photoPage": {
+    "message": "Fotoğraf"
+  },
+  "chooseFolder": {
+    "message": "Yer imi klasörü"
+  },
+  "loading": {
+    "message": "Yükleniyor…"
+  },
+  "bingFail": {
+    "message": "Bing resmi yüklenemedi"
+  },
+  "close": {
+    "message": "Kapat"
+  },
+  "langAuto": {
+    "message": "Otomatik"
+  },
+  "reset": {
+    "message": "Sıfırla"
+  },
+  "resetAsk": {
+    "message": "Tüm Flit ayarları sıfırlansın mı? Yer imlerine dokunulmaz."
+  },
+  "order": {
+    "message": "Sıralama"
+  },
+  "byColumn": {
+    "message": "Sütun sütun"
+  },
+  "byRow": {
+    "message": "Satır satır"
+  },
+  "scaling": {
+    "message": "Ölçekleme"
+  },
+  "welcomeNew": {
+    "message": "Başlamak için en çok ziyaret ettiğin sitelerle bir yer imi klasörü oluşturacağız."
+  },
+  "foundFolder": {
+    "message": "Yer imlerinde $2 bağlantılı “$1” klasörünü bulduk."
+  },
+  "continue": {
+    "message": "Devam et"
+  },
+  "badUrl": {
+    "message": "Bu bir bağlantıya benzemiyor"
+  },
+  "icons": {
+    "message": "Simgeler"
+  },
+  "iconNormal": {
+    "message": "Renkli"
+  },
+  "iconDim": {
+    "message": "Soluk"
+  },
+  "iconMono": {
+    "message": "Gri"
+  },
+  "caps": {
+    "message": "Başlıklar"
+  },
+  "capsNone": {
+    "message": "Olduğu gibi"
+  },
+  "capsLower": {
+    "message": "küçük harf"
+  },
+  "capsUpper": {
+    "message": "BÜYÜK HARF"
+  },
+  "secTips": {
+    "message": "İpuçları"
+  },
+  "tipMenu": {
+    "message": "Bir bağlantıya sağ tıklayıp düzenleyebilir, kopyalayabilir ya da silebilirsin."
+  },
+  "tipPaste": {
+    "message": "Bir bağlantı kopyala, bu sayfada Ctrl+V'ye bas; eklensin."
+  },
+  "tipDrag": {
+    "message": "Sıralamak için bağlantıları sürükle; eklemek için herhangi bir yerden link bırak."
+  },
+  "tipImage": {
+    "message": "Arka plan yapmak için bir resim bırak ya da yapıştır."
+  },
+  "tipKeys": {
+    "message": "Alt+1 – Alt+9 ilk dokuz bağlantını açar."
+  }
 }

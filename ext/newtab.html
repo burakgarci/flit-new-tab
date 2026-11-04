@@ -11,59 +11,77 @@
 <body>
 <div id="bg" aria-hidden="true"><img id="bg-fill" alt=""><img id="bg-img" alt=""></div>
 
-<main id="wrap"><nav id="links" aria-label="Links"></nav><p id="empty" class="g" hidden data-i18n="empty"></p></main>
+<main id="wrap"><nav id="links" aria-label="Links"></nav></main>
 
 <button id="credit" class="g" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8.5A1.5 1.5 0 0 1 4.5 7h2.6l1.6-2.2h6.6L16.9 7h2.6A1.5 1.5 0 0 1 21 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5z"/><circle cx="12" cy="13" r="3.6"/></svg><span></span></button>
-<div id="credit-pop" class="g card" hidden></div>
+<div id="credit-pop" class="g solid card" hidden></div>
 
-<div id="corner">
-  <button id="reset" class="g round" data-i18n-title="reset"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 2.6-6.4"/><path d="M3 4v4.5h4.5"/></svg></button>
-  <button id="gear" class="g round" data-i18n-title="settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></button>
-</div>
+<button id="gear" class="g round" data-i18n-title="settings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></button>
 
-<aside id="panel" class="g solid" hidden>
-  <header><h2 data-i18n="settings"></h2><button class="x" data-close data-i18n-title="close">✕</button></header>
+<dialog id="panel" class="g solid" aria-labelledby="p-title">
+  <nav id="cats">
+    <h2 id="p-title" data-i18n="settings"></h2>
+    <button data-cat="bg"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10" r="1.6"/><path d="M21 15.5l-4.5-4.5L8 19.5"/></svg><span data-i18n="secBg"></span></button>
+    <button data-cat="look"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/></svg><span data-i18n="secLook"></span></button>
+    <button data-cat="behavior"><svg viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg><span data-i18n="secBehavior"></span></button>
+    <button data-cat="data"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/></svg><span data-i18n="secData"></span></button>
+    <button data-cat="about"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.6v.1"/></svg><span data-i18n="secAbout"></span></button>
+  </nav>
+  <button class="x" data-close data-i18n-title="close"><svg viewBox="0 0 24 24"><path d="M7 7l10 10M17 7L7 17"/></svg></button>
   <div class="body">
-  <section><h3 data-i18n="secBg"></h3>
-    <div class="seg full" id="bg-tabs"><button data-tab="image" data-i18n="images"></button><button data-tab="gradient" data-i18n="gradient"></button><button data-tab="color" data-i18n="color"></button></div>
-    <div class="grid thumbs" id="g-image"></div>
-    <div class="grid swatches" id="g-gradient"></div>
-    <div class="grid swatches" id="g-color"></div>
-    <div class="row" id="r-fit"><span data-i18n="scaling"></span><div class="seg" data-key="bg.fit"><button data-v="cover" data-i18n="fill"></button><button data-v="contain" data-i18n="contain"></button><button data-v="center" data-i18n="center"></button></div></div>
-    <label class="row"><span data-i18n="dim"></span><input type="range" data-key="bg.dim" min="0" max="0.7" step="0.05"></label>
-    <label class="row" id="r-blur"><span data-i18n="blur"></span><input type="range" data-key="bg.blur" min="0" max="24" step="2"></label>
-    <label class="row" id="r-credit"><span data-i18n="credit"></span><input type="checkbox" data-key="credit"></label>
-    <a class="g btn" id="dl" data-i18n="download"></a>
-  </section>
-  <section><h3 data-i18n="secLook"></h3>
-    <div class="row"><span data-i18n="density"></span><div class="seg" data-key="density"><button data-v="compact" data-i18n="compact"></button><button data-v="normal" data-i18n="normal"></button><button data-v="wide" data-i18n="wide"></button></div></div>
-    <div class="row"><span data-i18n="columns"></span><div class="seg" data-key="cols"><button data-v="0" data-i18n="auto"></button><button data-v="2">2</button><button data-v="3">3</button><button data-v="4">4</button><button data-v="5">5</button><button data-v="6">6</button></div></div>
-    <div class="row"><span data-i18n="order"></span><div class="seg" data-key="flow"><button data-v="col" data-i18n="byColumn"></button><button data-v="row" data-i18n="byRow"></button></div></div>
-    <div class="row"><span data-i18n="align"></span><div class="seg" data-key="align"><button data-v="top" data-i18n="top"></button><button data-v="center" data-i18n="middle"></button><button data-v="bottom" data-i18n="bottom"></button></div></div>
-    <div class="row"><span data-i18n="theme"></span><div class="seg" data-key="theme"><button data-v="dark" data-i18n="dark"></button><button data-v="light" data-i18n="light"></button><button data-v="system" data-i18n="system"></button></div></div>
-    <label class="row"><span data-i18n="addTile"></span><input type="checkbox" data-key="addTile"></label>
-  </section>
-  <section><h3 data-i18n="secBehavior"></h3>
-    <label class="row"><span data-i18n="chooseFolder"></span><select id="folder"></select></label>
-    <label class="row"><span data-i18n="newTabLinks"></span><input type="checkbox" data-key="newTab"></label>
-    <label class="row"><span data-i18n="shortcuts"></span><input type="checkbox" data-key="keys"></label>
-    <label class="row"><span data-i18n="secLang"></span><select id="lang"></select></label>
-  </section>
-  <section><h3 data-i18n="secData"></h3>
-    <div class="btns"><button class="g btn" id="export" data-i18n="export"></button><label class="g btn"><span data-i18n="import"></span><input type="file" id="import" accept="application/json" hidden></label><button class="g btn" id="reset2" data-i18n="resetShort"></button></div>
-  </section>
-  <section class="about"><h3 data-i18n="secAbout"></h3>
-    <button class="logo small" id="replay" aria-label="Flit"></button>
-    <p><span id="ver"></span> · <a href="privacy.html" target="_blank" data-i18n="privacy"></a></p>
-  </section>
+    <section data-cat="bg"><h3 data-i18n="secBg"></h3>
+      <div class="seg full" id="bg-tabs"><button data-tab="image" data-i18n="images"></button><button data-tab="gradient" data-i18n="gradient"></button><button data-tab="color" data-i18n="color"></button></div>
+      <div class="grid thumbs" id="g-image"></div>
+      <div class="grid swatches" id="g-gradient"></div>
+      <div class="grid swatches" id="g-color"></div>
+      <div class="grp">
+        <div class="row" id="r-fit"><span data-i18n="scaling"></span><div class="seg" data-key="bg.fit"><button data-v="cover" data-i18n="fill"></button><button data-v="contain" data-i18n="contain"></button><button data-v="center" data-i18n="center"></button></div></div>
+        <label class="row"><span data-i18n="dim"></span><input type="range" data-key="bg.dim" min="0" max="0.7" step="0.05"></label>
+        <label class="row" id="r-blur"><span data-i18n="blur"></span><input type="range" data-key="bg.blur" min="0" max="24" step="2"></label>
+        <label class="row" id="r-credit"><span data-i18n="credit"></span><input type="checkbox" data-key="credit"></label>
+      </div>
+    </section>
+    <section data-cat="look"><h3 data-i18n="secLook"></h3>
+      <div class="grp">
+        <div class="row"><span data-i18n="theme"></span><div class="seg" data-key="theme"><button data-v="dark" data-i18n="dark"></button><button data-v="light" data-i18n="light"></button><button data-v="system" data-i18n="system"></button></div></div>
+        <div class="row"><span data-i18n="density"></span><div class="seg" data-key="density"><button data-v="compact" data-i18n="compact"></button><button data-v="normal" data-i18n="normal"></button><button data-v="wide" data-i18n="wide"></button></div></div>
+        <div class="row"><span data-i18n="columns"></span><div class="seg" data-key="cols"><button data-v="0" data-i18n="auto"></button><button data-v="2">2</button><button data-v="3">3</button><button data-v="4">4</button><button data-v="5">5</button><button data-v="6">6</button></div></div>
+        <div class="row"><span data-i18n="order"></span><div class="seg" data-key="flow"><button data-v="col" data-i18n="byColumn"></button><button data-v="row" data-i18n="byRow"></button></div></div>
+        <div class="row"><span data-i18n="align"></span><div class="seg" data-key="align"><button data-v="top" data-i18n="top"></button><button data-v="center" data-i18n="middle"></button><button data-v="bottom" data-i18n="bottom"></button></div></div>
+      </div>
+      <div class="grp">
+        <div class="row"><span data-i18n="icons"></span><div class="seg" data-key="icons"><button data-v="normal" data-i18n="iconNormal"></button><button data-v="dim" data-i18n="iconDim"></button><button data-v="mono" data-i18n="iconMono"></button></div></div>
+        <div class="row"><span data-i18n="caps"></span><div class="seg" data-key="caps"><button data-v="none" data-i18n-title="capsNone">Aa</button><button data-v="lower" data-i18n-title="capsLower">aa</button><button data-v="upper" data-i18n-title="capsUpper">AA</button></div></div>
+        <label class="row"><span data-i18n="addTile"></span><input type="checkbox" data-key="addTile"></label>
+      </div>
+    </section>
+    <section data-cat="behavior"><h3 data-i18n="secBehavior"></h3>
+      <div class="grp">
+        <label class="row"><span data-i18n="chooseFolder"></span><select id="folder"></select></label>
+        <label class="row"><span data-i18n="newTabLinks"></span><input type="checkbox" data-key="newTab"></label>
+        <label class="row"><span data-i18n="shortcuts"></span><input type="checkbox" data-key="keys"></label>
+        <label class="row"><span data-i18n="secLang"></span><select id="lang"></select></label>
+      </div>
+    </section>
+    <section data-cat="data"><h3 data-i18n="secData"></h3>
+      <div class="btns"><button class="g btn" id="export" data-i18n="export"></button><label class="g btn"><span data-i18n="import"></span><input type="file" id="import" accept="application/json" hidden></label><button class="g btn danger" id="reset" data-i18n="reset"></button></div>
+    </section>
+    <section data-cat="about" class="about"><h3 data-i18n="secAbout"></h3>
+      <button class="logo small" id="replay" aria-label="Flit"></button>
+      <h4 data-i18n="secTips"></h4>
+      <ul class="tips">
+        <li data-i18n="tipMenu"></li><li data-i18n="tipPaste"></li><li data-i18n="tipDrag"></li><li data-i18n="tipImage"></li><li data-i18n="tipKeys"></li>
+      </ul>
+      <p><span id="ver"></span> · <a href="privacy.html" target="_blank" data-i18n="privacy"></a></p>
+    </section>
   </div>
-</aside>
+</dialog>
 
 <div id="menu" class="g solid pop" hidden role="menu"></div>
 
 <dialog id="dlg" class="g solid"><form method="dialog">
-  <label><span data-i18n="url"></span><input class="field" name="url" type="url" required autocomplete="off"></label>
-  <label><span data-i18n="title"></span><input class="field" name="title" autocomplete="off"></label>
+  <input class="field" name="url" inputmode="url" required autocomplete="off" spellcheck="false" data-i18n-ph="url">
+  <input class="field" name="title" autocomplete="off" data-i18n-ph="title">
   <menu><button class="g btn" value="cancel" formnovalidate data-i18n="cancel"></button><button class="btn primary" value="ok" data-i18n="save"></button></menu>
 </form></dialog>
 
@@ -71,12 +89,12 @@
 
 <div id="welcome" hidden>
   <h1 class="logo" id="logo"></h1>
-  <p data-i18n="welcomeText"></p>
-  <button class="btn primary big" id="start" data-i18n="start"></button>
+  <p></p>
+  <button class="btn primary big" id="start"></button>
 </div>
 
 <input type="file" id="file" accept="image/*" hidden>
 <script src="paint.js"></script>
-<script type="module" src="app.js"></script>
+<script type="module" src="js/main.js"></script>
 </body>
 </html>

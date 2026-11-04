@@ -2,7 +2,7 @@
 (() => {
   const D = {
     theme: 'dark', density: 'normal', cols: 0, flow: 'col', align: 'top', addTile: false,
-    newTab: false, keys: true, lang: 'auto', credit: true,
+    icons: 'normal', caps: 'none', newTab: false, keys: true, lang: 'auto', credit: true,
     bg: { mode: 'image', image: 'abstract-aurora', gradient: 0, color: '#16181f', fit: 'cover', dim: 0.15, blur: 0 }
   };
   const G = [
@@ -17,7 +17,7 @@
   const h = document.documentElement;
   const apply = s => {
     const light = s.theme === 'light' || (s.theme === 'system' && matchMedia('(prefers-color-scheme: light)').matches);
-    Object.assign(h.dataset, { theme: light ? 'light' : 'dark', density: s.density, cols: s.cols, flow: s.flow, align: s.align, fit: s.bg.fit });
+    Object.assign(h.dataset, { theme: light ? 'light' : 'dark', density: s.density, cols: s.cols, flow: s.flow, align: s.align, icons: s.icons, caps: s.caps, fit: s.bg.fit });
     h.style.setProperty('--dim', s.bg.dim);
     h.style.setProperty('--blur', s.bg.blur + 'px');
   };

@@ -1,0 +1,14 @@
+{
+  "name": "flit-new-tab",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Fast Links, Instant Tab — your chosen bookmarks on every new tab.",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test",
+    "test:fast": "node --test tests/locales.test.js"
+  },
+  "devDependencies": {
+    "playwright": "^1.50.0"
+  }
+}

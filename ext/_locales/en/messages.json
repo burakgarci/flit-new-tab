@@ -1,260 +1,293 @@
 {
- "extName": {
-  "message": "Flit New Tab"
- },
- "extDesc": {
-  "message": "Fast Links, Instant Tab. Your chosen bookmarks on every new tab — fast, clean, private."
- },
- "slogan": {
-  "message": "Fast Links, Instant Tab"
- },
- "welcomeText": {
-  "message": "Your favorite links, the moment you open a tab. We'll create a bookmark folder and fill it with your most visited sites to start."
- },
- "start": {
-  "message": "Get started"
- },
- "created": {
-  "message": "We created the “Flit” folder under Other bookmarks. Rename it as you like — just don't delete it."
- },
- "legacyFound": {
-  "message": "Your btab folder still works. Its name no longer matters."
- },
- "renameToFlit": {
-  "message": "Rename to Flit"
- },
- "empty": {
-  "message": "No links yet. Paste a URL here (Ctrl+V), drop a link, or right-click to add one."
- },
- "open": {
-  "message": "Open"
- },
- "openTab": {
-  "message": "Open in new tab"
- },
- "openWindow": {
-  "message": "Open in new window"
- },
- "openPrivate": {
-  "message": "Open in incognito window"
- },
- "edit": {
-  "message": "Edit"
- },
- "copyUrl": {
-  "message": "Copy URL"
- },
- "delete": {
-  "message": "Delete"
- },
- "addLink": {
-  "message": "Add link"
- },
- "settings": {
-  "message": "Settings"
- },
- "title": {
-  "message": "Title"
- },
- "url": {
-  "message": "URL"
- },
- "save": {
-  "message": "Save"
- },
- "cancel": {
-  "message": "Cancel"
- },
- "deleted": {
-  "message": "Link deleted"
- },
- "undo": {
-  "message": "Undo"
- },
- "copied": {
-  "message": "URL copied"
- },
- "added": {
-  "message": "Link added"
- },
- "setAsBg": {
-  "message": "Use this image as background?"
- },
- "yes": {
-  "message": "Yes"
- },
- "secFolder": {
-  "message": "Folder"
- },
- "secLook": {
-  "message": "Appearance"
- },
- "secBg": {
-  "message": "Background"
- },
- "secBehavior": {
-  "message": "Behavior"
- },
- "secLang": {
-  "message": "Language"
- },
- "secData": {
-  "message": "Data"
- },
- "secAbout": {
-  "message": "About"
- },
- "density": {
-  "message": "Density"
- },
- "compact": {
-  "message": "Compact"
- },
- "normal": {
-  "message": "Normal"
- },
- "wide": {
-  "message": "Wide"
- },
- "columns": {
-  "message": "Columns"
- },
- "auto": {
-  "message": "Auto"
- },
- "align": {
-  "message": "Position"
- },
- "top": {
-  "message": "Top"
- },
- "middle": {
-  "message": "Middle"
- },
- "bottom": {
-  "message": "Bottom"
- },
- "theme": {
-  "message": "Theme"
- },
- "dark": {
-  "message": "Dark"
- },
- "light": {
-  "message": "Light"
- },
- "system": {
-  "message": "System"
- },
- "addTile": {
-  "message": "Show “+” tile"
- },
- "images": {
-  "message": "Images"
- },
- "gradient": {
-  "message": "Gradient"
- },
- "color": {
-  "message": "Color"
- },
- "ownImage": {
-  "message": "Your image"
- },
- "chooseFile": {
-  "message": "Choose file…"
- },
- "bing": {
-  "message": "Bing image of the day"
- },
- "fit": {
-  "message": "Fit"
- },
- "fill": {
-  "message": "Fill"
- },
- "contain": {
-  "message": "Fit"
- },
- "center": {
-  "message": "Center"
- },
- "dim": {
-  "message": "Dim"
- },
- "blur": {
-  "message": "Blur"
- },
- "credit": {
-  "message": "Show photo credit"
- },
- "download": {
-  "message": "Download wallpaper"
- },
- "newTabLinks": {
-  "message": "Open links in a new tab"
- },
- "shortcuts": {
-  "message": "Alt+1–9 opens links"
- },
- "export": {
-  "message": "Export"
- },
- "import": {
-  "message": "Import"
- },
- "imported": {
-  "message": "Settings imported"
- },
- "badFile": {
-  "message": "That file couldn't be read"
- },
- "privacy": {
-  "message": "Privacy policy"
- },
- "photoBy": {
-  "message": "Photo by $1 on Unsplash"
- },
- "profile": {
-  "message": "Profile"
- },
- "photoPage": {
-  "message": "Photo"
- },
- "chooseFolder": {
-  "message": "Bookmark folder"
- },
- "loading": {
-  "message": "Loading…"
- },
- "bingFail": {
-  "message": "Couldn't load the Bing image"
- },
- "close": {
-  "message": "Close"
- },
- "langAuto": {
-  "message": "Automatic"
- },
- "reset": {
-  "message": "Reset settings"
- },
- "resetAsk": {
-  "message": "Reset all Flit settings to defaults? Your bookmarks stay untouched."
- },
- "order": {
-  "message": "Order"
- },
- "byColumn": {
-  "message": "Columns first"
- },
- "byRow": {
-  "message": "Rows first"
- },
- "scaling": {
-  "message": "Scaling"
- },
- "resetShort": {
-  "message": "Reset"
- }
+  "extName": {
+    "message": "Flit New Tab"
+  },
+  "extDesc": {
+    "message": "Fast Links, Instant Tab. Your chosen bookmarks on every new tab — fast, clean, private."
+  },
+  "slogan": {
+    "message": "Fast Links, Instant Tab"
+  },
+  "welcomeText": {
+    "message": "Your favorite links, the moment you open a tab."
+  },
+  "start": {
+    "message": "Get started"
+  },
+  "created": {
+    "message": "All set! Your links live in Other bookmarks › Flit. Rename or move that folder anytime."
+  },
+  "legacyFound": {
+    "message": "Your links come from your old btab folder. Want to rename it?"
+  },
+  "renameToFlit": {
+    "message": "Rename to Flit"
+  },
+  "openTab": {
+    "message": "Open in new tab"
+  },
+  "openWindow": {
+    "message": "Open in new window"
+  },
+  "openPrivate": {
+    "message": "Open in incognito window"
+  },
+  "edit": {
+    "message": "Edit"
+  },
+  "copyUrl": {
+    "message": "Copy URL"
+  },
+  "delete": {
+    "message": "Delete"
+  },
+  "addLink": {
+    "message": "Add link"
+  },
+  "settings": {
+    "message": "Settings"
+  },
+  "title": {
+    "message": "Title"
+  },
+  "url": {
+    "message": "URL"
+  },
+  "save": {
+    "message": "Save"
+  },
+  "cancel": {
+    "message": "Cancel"
+  },
+  "deleted": {
+    "message": "Link deleted"
+  },
+  "undo": {
+    "message": "Undo"
+  },
+  "copied": {
+    "message": "URL copied"
+  },
+  "added": {
+    "message": "Link added"
+  },
+  "setAsBg": {
+    "message": "Use this image as background?"
+  },
+  "yes": {
+    "message": "Yes"
+  },
+  "secLook": {
+    "message": "Appearance"
+  },
+  "secBg": {
+    "message": "Background"
+  },
+  "secBehavior": {
+    "message": "Behavior"
+  },
+  "secLang": {
+    "message": "Language"
+  },
+  "secData": {
+    "message": "Data"
+  },
+  "secAbout": {
+    "message": "About"
+  },
+  "density": {
+    "message": "Density"
+  },
+  "compact": {
+    "message": "Compact"
+  },
+  "normal": {
+    "message": "Normal"
+  },
+  "wide": {
+    "message": "Wide"
+  },
+  "columns": {
+    "message": "Columns"
+  },
+  "auto": {
+    "message": "Auto"
+  },
+  "align": {
+    "message": "Position"
+  },
+  "top": {
+    "message": "Top"
+  },
+  "middle": {
+    "message": "Middle"
+  },
+  "bottom": {
+    "message": "Bottom"
+  },
+  "theme": {
+    "message": "Theme"
+  },
+  "dark": {
+    "message": "Dark"
+  },
+  "light": {
+    "message": "Light"
+  },
+  "system": {
+    "message": "System"
+  },
+  "addTile": {
+    "message": "Show “+” tile"
+  },
+  "images": {
+    "message": "Images"
+  },
+  "gradient": {
+    "message": "Gradient"
+  },
+  "color": {
+    "message": "Color"
+  },
+  "ownImage": {
+    "message": "Your image"
+  },
+  "bing": {
+    "message": "Bing image of the day"
+  },
+  "fill": {
+    "message": "Fill"
+  },
+  "contain": {
+    "message": "Fit"
+  },
+  "center": {
+    "message": "Center"
+  },
+  "dim": {
+    "message": "Dim"
+  },
+  "blur": {
+    "message": "Blur"
+  },
+  "credit": {
+    "message": "Show photo credit"
+  },
+  "download": {
+    "message": "Download"
+  },
+  "newTabLinks": {
+    "message": "Open links in a new tab"
+  },
+  "shortcuts": {
+    "message": "Alt+1–9 opens links"
+  },
+  "export": {
+    "message": "Export"
+  },
+  "import": {
+    "message": "Import"
+  },
+  "imported": {
+    "message": "Settings imported"
+  },
+  "badFile": {
+    "message": "That file couldn't be read"
+  },
+  "privacy": {
+    "message": "Privacy policy"
+  },
+  "profile": {
+    "message": "Profile"
+  },
+  "photoPage": {
+    "message": "Photo"
+  },
+  "chooseFolder": {
+    "message": "Bookmark folder"
+  },
+  "loading": {
+    "message": "Loading…"
+  },
+  "bingFail": {
+    "message": "Couldn't load the Bing image"
+  },
+  "close": {
+    "message": "Close"
+  },
+  "langAuto": {
+    "message": "Automatic"
+  },
+  "reset": {
+    "message": "Reset"
+  },
+  "resetAsk": {
+    "message": "Reset all Flit settings? Your bookmarks stay untouched."
+  },
+  "order": {
+    "message": "Order"
+  },
+  "byColumn": {
+    "message": "Columns first"
+  },
+  "byRow": {
+    "message": "Rows first"
+  },
+  "scaling": {
+    "message": "Scaling"
+  },
+  "welcomeNew": {
+    "message": "To start, we'll create a bookmark folder with your most visited sites."
+  },
+  "foundFolder": {
+    "message": "We found your “$1” bookmark folder with $2 links."
+  },
+  "continue": {
+    "message": "Continue"
+  },
+  "badUrl": {
+    "message": "That doesn't look like a link"
+  },
+  "icons": {
+    "message": "Icons"
+  },
+  "iconNormal": {
+    "message": "Color"
+  },
+  "iconDim": {
+    "message": "Faded"
+  },
+  "iconMono": {
+    "message": "Gray"
+  },
+  "caps": {
+    "message": "Titles"
+  },
+  "capsNone": {
+    "message": "As written"
+  },
+  "capsLower": {
+    "message": "lowercase"
+  },
+  "capsUpper": {
+    "message": "UPPERCASE"
+  },
+  "secTips": {
+    "message": "Tips"
+  },
+  "tipMenu": {
+    "message": "Right-click a link to edit, copy or delete it."
+  },
+  "tipPaste": {
+    "message": "Copy a link, then press Ctrl+V on this page to add it."
+  },
+  "tipDrag": {
+    "message": "Drag links to reorder them, or drop a link from anywhere to add it."
+  },
+  "tipImage": {
+    "message": "Drop or paste an image to make it your background."
+  },
+  "tipKeys": {
+    "message": "Alt+1 to Alt+9 open your first nine links."
+  }
 }

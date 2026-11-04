@@ -17,11 +17,12 @@
   F.render = (list, known = true) => {
     const nav = document.getElementById('links');
     nav.replaceChildren(...list.map(F.tile));
-    if (F.s.addTile) {
-      const p = document.createElement('button'); p.className = 'tile g add'; p.id = 'add-tile'; p.textContent = '+';
+    if (F.s.addTile || (known && !list.length)) {      // an empty folder shows one faint "+"
+      const p = document.createElement('button');
+      p.className = list.length ? 'tile g add' : 'tile g add ghost'; p.id = 'add-tile'; p.textContent = '+';
+      if (F.addLabel) p.title = p.ariaLabel = F.addLabel;
       nav.append(p);
     }
-    document.getElementById('empty').hidden = !known || list.length > 0;
   };
 
   F.bg = (s, src) => {

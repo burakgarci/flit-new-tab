@@ -19,6 +19,16 @@ export const ICONS = {
 // Settings live in a lazily loaded module: nothing of it is parsed until the first open.
 export const settings = (cat, toggle) => import('./panel.js').then(m => (toggle ? m.toggle(cat) : m.open(cat)));
 
+// Questions that need an answer (open many tabs, reset, replace the background) get a small alert; everything else is a toast.
+export function ask(text, ok, danger) {
+  const d = $('#ask'), b = d.querySelector('[value=ok]');
+  d.querySelector('p').textContent = text;
+  b.textContent = ok; b.classList.toggle('danger', !!danger);
+  d.returnValue = '';
+  d.showModal(); b.focus();
+  return new Promise(r => d.addEventListener('close', () => r(d.returnValue === 'ok'), { once: true }));
+}
+
 let toastTimer;
 export function toast(msg, action, fn, ms = 4500) {
   const el = $('#toast'), b = el.querySelector('button');

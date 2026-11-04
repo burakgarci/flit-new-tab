@@ -1,6 +1,6 @@
 // Settings window, loaded on first open. Categories on the left, the chosen one on the right.
 import { S, save, get, patchOf, replace, onChange } from './store.js';
-import { $, at, h, icon, ICONS, toast } from './ui.js';
+import { $, at, h, icon, ICONS, toast, ask } from './ui.js';
 import { t, LANGS, loadLang } from './i18n.js';
 import { buildLogo, play } from './logo.js';
 import * as L from './links.js';
@@ -19,8 +19,8 @@ export const toggle = c => (P.open ? close() : open(c));
 P.addEventListener('close', () => location.hash && history.replaceState(null, '', location.pathname));
 P.querySelector('[data-close]').onclick = close;
 const pickerOpen = () => { try { return !!P.querySelector('select:open'); } catch { return false; } };
-addEventListener('keydown', e => { if (e.key === 'Escape' && !$('#dlg').open && !pickerOpen()) close(); });   // Esc closes an open list first
-document.addEventListener('pointerdown', e => { if (P.open && !at(e).closest('#panel, #gear, #toast, #menu, #dlg')) close(); });
+addEventListener('keydown', e => { if (e.key === 'Escape' && !document.querySelector('#dlg[open], #ask[open]') && !pickerOpen()) close(); });   // Esc closes an open list first
+document.addEventListener('pointerdown', e => { if (P.open && !at(e).closest('#panel, #gear, #toast, #menu, #dlg, #ask')) close(); });
 
 const body = P.querySelector('.body');
 body.addEventListener('scroll', () => body.classList.toggle('scrolled', body.scrollTop > 2), { passive: true });
@@ -71,8 +71,8 @@ B.WP.then(wp => {
       const b = h('button', { style: `background-image:url(${w.thumb})`, title: w.title || w.author, onclick: () => B.pick({ mode: 'image', image: w.id }) });
       b.dataset.id = w.id; return b;
     }),
-    named(h('button', { hidden: true, onclick: () => B.pick({ mode: 'image', image: 'custom' }) }), 'custom', 'ownImage'),
     tile('sun', 'bing', 'bing', bingClick),
+    Object.assign(tile('upload', 'custom', 'ownImage', () => B.pick({ mode: 'image', image: 'custom' })), { hidden: true }),
     tile('upload', 'upload', 'upload', () => $('#file').click()));
   storedTiles(); sync();
 });
@@ -163,7 +163,7 @@ async function reset(rs) {
 }
 const rsBox = () => { const rs = checked('data-rs'); $('#reset').disabled = !Object.values(rs).some(Boolean); return rs; };
 P.querySelectorAll('[data-rs]').forEach(i => (i.onchange = rsBox));
-$('#reset').onclick = () => { const rs = rsBox(); toast(t('resetAsk'), t('reset'), () => reset(rs), 8000); };
+$('#reset').onclick = async () => { const rs = rsBox(); if (await ask(t('resetAsk'), t('reset'), true)) reset(rs); };
 
 /* About */
 const logo = () => buildLogo($('#replay'), true);

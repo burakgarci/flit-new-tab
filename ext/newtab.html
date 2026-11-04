@@ -105,8 +105,8 @@
         <ul>
           <li><b>Bookmarks</b> — to show, add, edit, reorder and delete links in the one folder you use with Flit. On first run it creates that folder. It never touches other bookmarks, and Reset never deletes any.</li>
           <li><b>Most visited sites</b> — read once, only when you press “Get started”, to fill the new folder. Not stored or sent anywhere.</li>
-          <li><b>Storage</b> — your settings. If Chrome Sync is on, Chrome copies them to your other devices under <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's privacy policy</a>. Your own image and the Bing image are kept only on this device.</li>
-          <li><b>Site icons</b> — read from Chrome's local icon cache. No request is made for them.</li>
+          <li><b>Storage</b> — your settings. If your browser's sync is on, the browser copies them to your other devices under its maker's privacy policy (for Chrome, <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's</a>). Your own image and the Bing image are kept only on this device.</li>
+          <li><b>Site icons</b> — read from the browser's local icon cache. No request is made for them.</li>
         </ul>
         <h4>Network requests</h4>
         <p>None by default. If you choose <b>Bing image of the day</b>, you are asked for access to bing.com; after that Flit downloads the day's image once a day. Flit sends nothing about you with this request — no cookies, bookmarks or settings — but like any connection, Microsoft can see your IP address and browser type. Microsoft's <a href="https://privacy.microsoft.com/privacystatement" target="_blank" rel="noopener">privacy statement</a> applies to that request, and Bing images belong to their owners. To stop it, pick another background, or reset background images under Data, which also removes the access.</p>
@@ -122,8 +122,8 @@
         <ul>
           <li><b>Yer imleri</b> — Flit ile kullandığın tek klasördeki bağlantıları göstermek, eklemek, düzenlemek, sıralamak ve silmek için. İlk açılışta bu klasörü oluşturur. Diğer yer imlerine dokunmaz; Sıfırla hiçbirini silmez.</li>
           <li><b>En çok ziyaret edilen siteler</b> — yalnızca “Başla”ya bastığında, yeni klasörü doldurmak için bir kez okunur. Saklanmaz, hiçbir yere gönderilmez.</li>
-          <li><b>Depolama</b> — ayarların. Chrome Sync açıksa Chrome bunları <a href="https://policies.google.com/privacy?hl=tr" target="_blank" rel="noopener">Google gizlilik politikası</a> kapsamında diğer cihazlarına kopyalar. Eklediğin resim ve Bing resmi yalnızca bu cihazda tutulur.</li>
-          <li><b>Site simgeleri</b> — Chrome'un yerel simge önbelleğinden okunur. Bunlar için istek yapılmaz.</li>
+          <li><b>Depolama</b> — ayarların. Tarayıcının senkronizasyonu açıksa tarayıcı bunları, yapımcısının gizlilik politikası kapsamında (Chrome için <a href="https://policies.google.com/privacy?hl=tr" target="_blank" rel="noopener">Google'ınki</a>) diğer cihazlarına kopyalar. Eklediğin resim ve Bing resmi yalnızca bu cihazda tutulur.</li>
+          <li><b>Site simgeleri</b> — Tarayıcının yerel simge önbelleğinden okunur. Bunlar için istek yapılmaz.</li>
         </ul>
         <h4>Ağ istekleri</h4>
         <p>Varsayılan olarak hiç yok. <b>Bing günün resmi</b>ni seçersen bing.com erişimi için izin istenir; sonrasında Flit günün resmini günde bir kez indirir. Bu istekle senin hakkında hiçbir şey gönderilmez — çerez, yer imi ya da ayar yok — ama her bağlantıda olduğu gibi Microsoft IP adresini ve tarayıcı türünü görebilir. Bu istek için Microsoft'un <a href="https://privacy.microsoft.com/tr-tr/privacystatement" target="_blank" rel="noopener">gizlilik bildirimi</a> geçerlidir; Bing resimleri sahiplerine aittir. Durdurmak için başka bir arka plan seç ya da Veri bölümünden arka plan resimlerini sıfırla; bu, erişimi de kaldırır.</p>
@@ -143,6 +143,11 @@
   <input class="field" name="url" inputmode="url" required autocomplete="off" spellcheck="false" data-i18n-ph="url">
   <input class="field" name="title" autocomplete="off" data-i18n-ph="title">
   <menu><button class="btn" value="cancel" formnovalidate data-i18n="cancel"></button><button class="btn primary" value="ok" data-i18n="save"></button></menu>
+</form></dialog>
+
+<dialog id="ask" class="g solid"><form method="dialog">
+  <p></p>
+  <menu><button class="btn" value="cancel" data-i18n="cancel"></button><button class="btn primary" value="ok"></button></menu>
 </form></dialog>
 
 <div id="toast" class="g solid" role="status" hidden><span></span><button hidden></button></div>

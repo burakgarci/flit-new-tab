@@ -72,10 +72,7 @@
     "message": "Link added"
   },
   "setAsBg": {
-    "message": "Use this image as background?"
-  },
-  "yes": {
-    "message": "Yes"
+    "message": "Use this image as your background?"
   },
   "secLook": {
     "message": "Appearance"
@@ -376,5 +373,8 @@
   },
   "upload": {
     "message": "Upload image"
+  },
+  "use": {
+    "message": "Use"
   }
 }

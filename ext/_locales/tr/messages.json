@@ -72,10 +72,7 @@
     "message": "Bağlantı eklendi"
   },
   "setAsBg": {
-    "message": "Bu resim arka plan yapılsın mı?"
-  },
-  "yes": {
-    "message": "Evet"
+    "message": "Bu resim arka planın olsun mu?"
   },
   "secLook": {
     "message": "Görünüm"
@@ -376,5 +373,8 @@
   },
   "upload": {
     "message": "Resim yükle"
+  },
+  "use": {
+    "message": "Kullan"
   }
 }

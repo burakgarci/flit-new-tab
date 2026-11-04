@@ -8,8 +8,8 @@
 
 - **Bookmarks** — to show, add, edit, reorder and delete links in the one folder you use with Flit. On first run it creates that folder. It never touches other bookmarks, and Reset never deletes any.
 - **Most visited sites** — read once, only when you press “Get started”, to fill the new folder. Not stored or sent anywhere.
-- **Storage** — your settings. If Chrome Sync is on, Chrome copies them to your other devices under [Google's privacy policy](https://policies.google.com/privacy). Your own image and the Bing image are kept only on this device.
-- **Site icons** — read from Chrome's local icon cache. No request is made for them.
+- **Storage** — your settings. If your browser's sync is on, the browser copies them to your other devices under its maker's privacy policy (for Chrome, [Google's](https://policies.google.com/privacy)). Your own image and the Bing image are kept only on this device.
+- **Site icons** — read from the browser's local icon cache. No request is made for them.
 
 ## Network requests
 
@@ -39,8 +39,8 @@ Questions: [GitHub issues](https://github.com/burakgarci/flit-new-tab/issues).
 
 - **Yer imleri** — Flit ile kullandığın tek klasördeki bağlantıları göstermek, eklemek, düzenlemek, sıralamak ve silmek için. İlk açılışta bu klasörü oluşturur. Diğer yer imlerine dokunmaz; Sıfırla hiçbirini silmez.
 - **En çok ziyaret edilen siteler** — yalnızca “Başla”ya bastığında, yeni klasörü doldurmak için bir kez okunur. Saklanmaz, hiçbir yere gönderilmez.
-- **Depolama** — ayarların. Chrome Sync açıksa Chrome bunları [Google gizlilik politikası](https://policies.google.com/privacy?hl=tr) kapsamında diğer cihazlarına kopyalar. Eklediğin resim ve Bing resmi yalnızca bu cihazda tutulur.
-- **Site simgeleri** — Chrome'un yerel simge önbelleğinden okunur. Bunlar için istek yapılmaz.
+- **Depolama** — ayarların. Tarayıcının senkronizasyonu açıksa tarayıcı bunları, yapımcısının gizlilik politikası kapsamında (Chrome için [Google'ınki](https://policies.google.com/privacy?hl=tr)) diğer cihazlarına kopyalar. Eklediğin resim ve Bing resmi yalnızca bu cihazda tutulur.
+- **Site simgeleri** — Tarayıcının yerel simge önbelleğinden okunur. Bunlar için istek yapılmaz.
 
 ### Ağ istekleri
 

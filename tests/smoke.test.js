@@ -68,7 +68,7 @@ test('new tab works end to end', { skip: !chromium && 'playwright not installed'
     await page.click('#cats [data-cat=data]');
     await page.check('[data-rs=folder]');
     await page.click('#reset');
-    await page.click('#toast button');
+    await page.click('#ask [value=ok]');
     await page.waitForSelector('#welcome:not([hidden]) #start');
     assert.strictEqual(await page.getAttribute('html', 'data-caps'), 'none');
     assert.strictEqual(await page.evaluate(id => chrome.bookmarks.getChildren(id).then(k => k.length), folderId), 3);

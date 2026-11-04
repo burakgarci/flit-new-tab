@@ -1,6 +1,6 @@
 // Background: bundled wallpapers, gradients, colors; your own image and Bing are kept in IndexedDB.
 import { S, save } from './store.js';
-import { $, at, h, icon, ICONS, toast } from './ui.js';
+import { $, at, h, icon, ICONS, toast, ask } from './ui.js';
 import { t, lang } from './i18n.js';
 
 const F = window.FLIT;
@@ -34,7 +34,7 @@ export async function showStored() {
 export async function show() { F.bg(S); await showStored(); showCredit(); changed(); }
 export const pick = bg => { save({ bg }); show(); };
 
-export const askBg = file => toast(t('setAsBg'), t('yes'), () => setCustom(file), 8000);
+export const askBg = async file => { if (await ask(t('setAsBg'), t('use'))) setCustom(file); };
 export async function setCustom(file, use = true) {
   let blob = file;
   try {

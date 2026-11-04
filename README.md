@@ -2,10 +2,10 @@
 
 **Fast Links, Instant Tab.** Your chosen bookmarks on every new tab — instantly, beautifully, privately.
 
-Flit replaces Chrome's new tab page with the links from one bookmark folder. Edit them anywhere in Chrome and the page follows; nothing leaves your browser.
+Flit replaces your browser's new tab page with the links from one bookmark folder. Edit them anywhere in the browser and the page follows; nothing leaves your browser.
 
 - **Instant** — the page paints from a local cache before any script runs. No network, no flash, no layout jump.
-- **Your bookmarks** — one folder (“Flit”, under Other bookmarks) holds your links. Rename or move it; Flit keeps track. It syncs with your Chrome profile like any bookmark.
+- **Your bookmarks** — one folder (“Flit”, under Other bookmarks) holds your links. Rename or move it; Flit keeps track. It syncs with your browser profile like any bookmark.
 - **Quick to manage** — right-click to edit or delete (with undo), paste a URL to add it, drag to reorder, Alt+1–9 to open.
 - **Backgrounds** — bundled photos and abstracts, gradients, solid colors, your own image or Bing's image of the day. Dim and blur to taste.
 - **Your look** — columns or rows, density, position, light/dark/system theme, faded or gray icons, lowercase or uppercase titles.
@@ -23,7 +23,7 @@ Works in Chrome, Edge, Brave, Arc and other Chromium browsers (version 120+).
 
 ## Privacy
 
-No accounts, no analytics, no remote code. Settings live in Chrome's storage; the only optional network request is Bing's image of the day, after you turn it on. Full policy: [PRIVACY.md](PRIVACY.md) (also in Settings › Privacy).
+No accounts, no analytics, no remote code. Settings live in the browser's storage; the only optional network request is Bing's image of the day, after you turn it on. Full policy: [PRIVACY.md](PRIVACY.md) (also in Settings › Privacy).
 
 ## Development
 

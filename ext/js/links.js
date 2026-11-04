@@ -1,6 +1,6 @@
 // Bookmarks: the folder is tracked by id; tiles follow every change made anywhere in Chrome.
 import { S } from './store.js';
-import { $, at, toast, menu, settings } from './ui.js';
+import { $, at, toast, menu, ask, settings } from './ui.js';
 import { t } from './i18n.js';
 import { askBg } from './bg.js';
 
@@ -120,7 +120,7 @@ document.addEventListener('contextmenu', e => {
   ]);
   else if (folderId) menu(e.clientX, e.clientY, [
     [t('addLink'), () => edit()],
-    nodes.length > 1 && [t('openAll', nodes.length), () => toast(t('openAllAsk', nodes.length), t('open'), () => nodes.forEach(n => chrome.tabs.create({ url: n.url, active: false })), 8000)],
+    nodes.length > 1 && [t('openAll', nodes.length), async () => { if (await ask(t('openAllAsk', nodes.length), t('open'))) nodes.forEach(n => chrome.tabs.create({ url: n.url, active: false })); }],
     [t('manage'), () => chrome.tabs.create({ url: 'chrome://bookmarks/?id=' + folderId })],
     null,
     [t('changeBg'), () => settings('bg')],

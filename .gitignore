@@ -1,0 +1,41 @@
+# ── Chrome extension packaging ─────────────────────────────
+# Private signing key created by "Pack extension" — never commit
+*.pem
+*.crx
+*.zip
+dist/
+build/
+
+# ── Local only ────────────────────────────────────────────
+# Source assets and generator scripts (shipped copies live in ext/wallpapers/)
+assets-raw/
+# Working notes
+PLAN.md
+NEXT.md
+
+# ── Node (future tooling) ──────────────────────────────────
+node_modules/
+npm-debug.log*
+*.log
+.env
+
+# ── Python (asset scripts) ─────────────────────────────────
+__pycache__/
+*.py[cod]
+.venv/
+
+# ── Editors ────────────────────────────────────────────────
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea/
+*.swp
+*~
+
+# ── OS ─────────────────────────────────────────────────────
+.DS_Store
+._*
+Thumbs.db
+ehthumbs.db
+desktop.ini
+$RECYCLE.BIN/

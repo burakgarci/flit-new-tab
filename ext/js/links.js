@@ -120,7 +120,7 @@ document.addEventListener('contextmenu', e => {
   ]);
   else if (folderId) menu(e.clientX, e.clientY, [
     [t('addLink'), () => edit()],
-    nodes.length > 1 && [t('openAll', nodes.length), () => nodes.forEach(n => chrome.tabs.create({ url: n.url, active: false }))],
+    nodes.length > 1 && [t('openAll', nodes.length), () => toast(t('openAllAsk', nodes.length), t('open'), () => nodes.forEach(n => chrome.tabs.create({ url: n.url, active: false })), 8000)],
     [t('manage'), () => chrome.tabs.create({ url: 'chrome://bookmarks/?id=' + folderId })],
     null,
     [t('changeBg'), () => settings('bg')],

@@ -46,8 +46,24 @@ const fill = r => r.style.setProperty('--p', ((r.value - r.min) / (r.max - r.min
 const named = (b, id, key) => { b.dataset.id = id; b.dataset.i18nTitle = key; b.title = t(key); b.ariaLabel = t(key); return b; };
 async function bingClick() {
   if (!(await chrome.permissions.request(B.BING))) return;   // must come first: it needs the click
-  toast(t('loading'));
-  if (await B.bing(true)) B.pick({ mode: 'image', image: 'bing' }); else toast(t('bingFail'));
+  if (!(await B.getRec('bing'))) toast(t('loading'));
+  if (await B.bing()) B.pick({ mode: 'image', image: 'bing' }); else toast(t('bingFail'));
+}
+const tile = (ico, id, key, onclick) => {
+  const label = h('span', { textContent: t(key) }); label.dataset.i18n = key;
+  const b = h('button', { className: 'ico', onclick }, icon(ICONS[ico]), label); b.dataset.id = id; return b;
+};
+const thumbs = {};
+async function storedTiles() {                              // your last image and today's Bing image, as thumbnails
+  for (const id of ['custom', 'bing']) {
+    const b = $(`#g-image [data-id=${id}]`), rec = b && (await B.getRec(id));
+    if (!b) continue;
+    if (thumbs[id]) URL.revokeObjectURL(thumbs[id]);
+    thumbs[id] = rec ? URL.createObjectURL(rec.blob) : null;
+    b.style.backgroundImage = rec ? `url(${thumbs[id]})` : '';
+    b.classList.toggle('has', !!rec);
+    if (id === 'custom') b.hidden = !rec;
+  }
 }
 B.WP.then(wp => {
   $('#g-image').replaceChildren(
@@ -55,9 +71,10 @@ B.WP.then(wp => {
       const b = h('button', { style: `background-image:url(${w.thumb})`, title: w.title || w.author, onclick: () => B.pick({ mode: 'image', image: w.id }) });
       b.dataset.id = w.id; return b;
     }),
-    named(h('button', { className: 'ico', onclick: () => $('#file').click() }, icon(ICONS.upload)), 'custom', 'ownImage'),
-    named(h('button', { className: 'ico', onclick: bingClick }, icon(ICONS.sun)), 'bing', 'bing'));
-  sync();
+    named(h('button', { hidden: true, onclick: () => B.pick({ mode: 'image', image: 'custom' }) }), 'custom', 'ownImage'),
+    tile('sun', 'bing', 'bing', bingClick),
+    tile('upload', 'upload', 'upload', () => $('#file').click()));
+  storedTiles(); sync();
 });
 $('#g-gradient').replaceChildren(...F.G.map((g, i) => {
   const b = h('button', { style: `background:linear-gradient(135deg,${g[0]},${g[1]})`, onclick: () => B.pick({ mode: 'gradient', gradient: i }) });
@@ -175,6 +192,6 @@ function sync() {
   $('#g-color .pick').classList.toggle('on', b.mode === 'color' && !F.C.includes(b.color));
   $('#lang').value = S.lang;
 }
-document.addEventListener('flit:bg', sync);
+document.addEventListener('flit:bg', () => { sync(); storedTiles(); });
 document.addEventListener('flit:lang', sync);
 onChange(sync);

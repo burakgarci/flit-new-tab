@@ -132,7 +132,7 @@ body.drop::after { content: ""; position: fixed; inset: 12px; border: 2px dashed
 #toast button { border: 0; background: none; color: var(--accent); font-weight: 600; cursor: pointer; white-space: nowrap; padding: 0; }
 #dlg { padding: 20px; width: min(420px, 92vw); border-radius: 26px; color: var(--fg); box-shadow: inset 0 0 0 1px var(--rim), inset 0 1px 0 var(--hl), var(--pop-shadow); }
 #dlg[open] { animation: pop .18s ease-out; }
-#dlg::backdrop { background: rgba(0,0,0,.3); backdrop-filter: blur(4px); }
+#dlg::backdrop { background: rgba(0,0,0,.3); }   /* no blur: re-blurring every tile made opening feel slow */
 #dlg .field + .field { margin-top: 10px; }
 #dlg menu { display: flex; justify-content: flex-end; gap: 8px; margin: 18px 0 0; padding: 0; }
 
@@ -177,7 +177,8 @@ select option { background: var(--bg); color: var(--fg); }
   selectedcontent { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
   select::picker-icon { color: var(--fg3); transition: rotate .2s; }
   select:open::picker-icon { rotate: 180deg; }
-  ::picker(select) { margin-top: 6px; padding: 6px; border: 0; border-radius: 16px; max-height: min(360px, 60vh); color: var(--fg);
+  ::picker(select) { position-area: block-end span-inline-start; position-try-fallbacks: flip-block;   /* right edges line up, stays inside the window */
+    margin-top: 6px; padding: 6px; border: 0; border-radius: 16px; max-height: min(360px, 60vh); color: var(--fg);
     background: var(--tint-solid); backdrop-filter: blur(24px) saturate(180%);
     box-shadow: inset 0 0 0 1px var(--rim), inset 0 1px 0 var(--hl), var(--pop-shadow); }
   select option { display: flex; align-items: center; gap: 8px; padding: 7px 12px 7px 8px; border-radius: 10px; background: none; white-space: nowrap; }
@@ -210,7 +211,7 @@ select option { background: var(--bg); color: var(--fg); }
 .x svg { width: 14px; height: 14px; stroke-width: 2.4; }
 .grp { margin-top: 14px; padding: 0 16px; border-radius: 16px; background: var(--group); }
 h4 + .grp { margin-top: 0; }
-.grp > .row + .row { border-top: 1px solid var(--sep); }
+.grp > .row:not([hidden]) ~ .row { border-top: 1px solid var(--sep); }   /* no line above the first visible row */
 .row { display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 48px; padding: 8px 0; margin: 0; }
 .row > span { color: var(--fg); }
 .row .txt { display: grid; gap: 2px; }
@@ -234,11 +235,16 @@ a.row::after { content: "›"; color: var(--fg3); font-size: 20px; line-height: 
 .swatches > button { aspect-ratio: 1; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--rim); }
 .grid > button:hover { transform: scale(1.03); }
 .grid > button.on { outline: 2.5px solid var(--accent); outline-offset: 2.5px; }
-.grid > .ico { display: grid; place-items: center; }
-.grid > .ico svg { width: 22px; height: 22px; }
+.grid > .ico { display: grid; place-items: center; align-content: center; gap: 6px; font-size: 12px; color: var(--fg2); }
+.grid > .ico svg { width: 22px; height: 22px; color: var(--fg); }
+.grid > .ico.has svg { display: none; }
+.grid > .ico.has span { position: absolute; left: 6px; bottom: 6px; padding: 2px 8px; border-radius: 999px; color: #fff;
+  background: rgba(0,0,0,.42); backdrop-filter: blur(8px); font-size: 11px; }
 .grid > .pick { background: conic-gradient(#ff5f5f, #ffd25f, #5fff8a, #5fd8ff, #7a5fff, #ff5fd2, #ff5f5f); }
 
-.about-head { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; margin-bottom: 22px; }
+.about-head { display: flex; align-items: center; gap: 16px; margin-bottom: 22px; }
+.about-head > div { display: grid; justify-items: start; gap: 4px; }
+.about-head img { border-radius: 16px; }
 .about-head small { color: var(--fg2); font-size: 13px; }
 .tips { margin: 0; padding: 10px 16px 10px 34px; border-radius: 16px; background: var(--group); color: var(--fg); line-height: 1.7; }
 .tips li::marker { color: var(--fg3); }

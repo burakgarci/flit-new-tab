@@ -367,5 +367,14 @@
   },
   "changeBg": {
     "message": "Arka planı değiştir"
+  },
+  "openAllAsk": {
+    "message": "$1 bağlantı yeni sekmelerde açılsın mı?"
+  },
+  "open": {
+    "message": "Aç"
+  },
+  "upload": {
+    "message": "Resim yükle"
   }
 }

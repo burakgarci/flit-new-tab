@@ -367,5 +367,14 @@
   },
   "changeBg": {
     "message": "Change background"
+  },
+  "openAllAsk": {
+    "message": "Open $1 links in new tabs?"
+  },
+  "open": {
+    "message": "Open"
+  },
+  "upload": {
+    "message": "Upload image"
   }
 }

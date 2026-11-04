@@ -182,20 +182,8 @@
   "shortcuts": {
     "message": "Alt+1–9 bağlantıları açar"
   },
-  "export": {
-    "message": "Dışa aktar"
-  },
-  "import": {
-    "message": "İçe aktar"
-  },
-  "imported": {
-    "message": "Ayarlar içe aktarıldı"
-  },
   "badFile": {
     "message": "Bu dosya okunamadı"
-  },
-  "privacy": {
-    "message": "Gizlilik politikası"
   },
   "profile": {
     "message": "Profil"
@@ -220,9 +208,6 @@
   },
   "reset": {
     "message": "Sıfırla"
-  },
-  "resetAsk": {
-    "message": "Tüm Flit ayarları sıfırlansın mı? Yer imlerine dokunulmaz."
   },
   "order": {
     "message": "Sıralama"
@@ -289,5 +274,98 @@
   },
   "tipKeys": {
     "message": "Alt+1 – Alt+9 ilk dokuz bağlantını açar."
+  },
+  "secPrivacy": {
+    "message": "Gizlilik"
+  },
+  "backup": {
+    "message": "Yedekle"
+  },
+  "links": {
+    "message": "Bağlantılar"
+  },
+  "exSettings": {
+    "message": "Görünüm, arka plan ve davranış seçimlerin"
+  },
+  "exLinks": {
+    "message": "Klasöründeki $1 bağlantının adı ve adresi"
+  },
+  "exImage": {
+    "message": "Eklediğin arka plan resmi; dosyayı büyütür"
+  },
+  "exportBtn": {
+    "message": "Yedeği kaydet…"
+  },
+  "restore": {
+    "message": "Geri yükle"
+  },
+  "restoreTitle": {
+    "message": "Flit yedek dosyası (.json)"
+  },
+  "restoreSub": {
+    "message": "Ayarlar dosyadakiyle değişir; bağlantılar klasörüne eklenir, hiçbiri silinmez; resim varsa arka planın olur."
+  },
+  "importBtn": {
+    "message": "Dosya seç…"
+  },
+  "imported": {
+    "message": "Geri yüklendi: $1"
+  },
+  "doneSettings": {
+    "message": "ayarlar"
+  },
+  "doneLinks": {
+    "message": "$1 yeni bağlantı"
+  },
+  "doneImage": {
+    "message": "arka plan resmi"
+  },
+  "rsSettings": {
+    "message": "Görünüm, arka plan ve davranış varsayılana döner"
+  },
+  "rsImagesTitle": {
+    "message": "Arka plan resimleri"
+  },
+  "rsImages": {
+    "message": "Eklediğin resim ve Bing resmi silinir; bing.com erişimi kaldırılır"
+  },
+  "rsFolderTitle": {
+    "message": "Klasör seçimi"
+  },
+  "rsFolder": {
+    "message": "Flit hangi klasörü kullandığını unutur, karşılama ekranı yeniden açılır"
+  },
+  "rsNote": {
+    "message": "Yer imlerin asla silinmez."
+  },
+  "resetAsk": {
+    "message": "Seçilenler sıfırlansın mı?"
+  },
+  "version": {
+    "message": "Sürüm $1"
+  },
+  "rate": {
+    "message": "Chrome Web Mağazası'nda değerlendir"
+  },
+  "source": {
+    "message": "GitHub'da kaynak kodu"
+  },
+  "report": {
+    "message": "Sorun bildir ya da fikir öner"
+  },
+  "madeBy": {
+    "message": "Geliştiren: Burak Garcı"
+  },
+  "fine": {
+    "message": "MIT lisansı · Fotoğraflar Unsplash'tan, her biri fotoğrafçısıyla"
+  },
+  "openAll": {
+    "message": "Hepsini aç ($1)"
+  },
+  "manage": {
+    "message": "Yer imi yöneticisinde aç"
+  },
+  "changeBg": {
+    "message": "Arka planı değiştir"
   }
 }

@@ -53,9 +53,20 @@ test('new tab works end to end', { skip: !chromium && 'playwright not installed'
     assert.strictEqual(await page.getAttribute('html', 'data-caps'), 'upper');
     await page.waitForFunction(() => document.querySelectorAll('.tile[data-id]').length === 3);
 
-    // Reset: settings go back to defaults, bookmarks stay, welcome offers to continue
+    // Backup holds what was ticked: settings and links by default
     await page.click('#gear');
     await page.click('#cats [data-cat=data]');
+    const [dl] = await Promise.all([page.waitForEvent('download'), page.click('#export')]);
+    const backup = JSON.parse(fs.readFileSync(await dl.path(), 'utf8'));
+    assert.strictEqual(backup.settings.caps, 'upper');
+    assert.strictEqual(backup.links.length, 3);
+    assert.ok(!('image' in backup));
+    await page.keyboard.press('Escape');
+
+    // Reset settings + folder choice: defaults come back, bookmarks stay, welcome offers to continue
+    await page.click('#gear');
+    await page.click('#cats [data-cat=data]');
+    await page.check('[data-rs=folder]');
     await page.click('#reset');
     await page.click('#toast button');
     await page.waitForSelector('#welcome:not([hidden]) #start');

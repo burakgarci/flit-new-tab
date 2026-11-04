@@ -182,20 +182,8 @@
   "shortcuts": {
     "message": "Alt+1–9 opens links"
   },
-  "export": {
-    "message": "Export"
-  },
-  "import": {
-    "message": "Import"
-  },
-  "imported": {
-    "message": "Settings imported"
-  },
   "badFile": {
     "message": "That file couldn't be read"
-  },
-  "privacy": {
-    "message": "Privacy policy"
   },
   "profile": {
     "message": "Profile"
@@ -220,9 +208,6 @@
   },
   "reset": {
     "message": "Reset"
-  },
-  "resetAsk": {
-    "message": "Reset all Flit settings? Your bookmarks stay untouched."
   },
   "order": {
     "message": "Order"
@@ -289,5 +274,98 @@
   },
   "tipKeys": {
     "message": "Alt+1 to Alt+9 open your first nine links."
+  },
+  "secPrivacy": {
+    "message": "Privacy"
+  },
+  "backup": {
+    "message": "Back up"
+  },
+  "links": {
+    "message": "Links"
+  },
+  "exSettings": {
+    "message": "Appearance, background and behavior choices"
+  },
+  "exLinks": {
+    "message": "Names and addresses of the $1 links in your folder"
+  },
+  "exImage": {
+    "message": "The background image you added; makes the file larger"
+  },
+  "exportBtn": {
+    "message": "Save backup…"
+  },
+  "restore": {
+    "message": "Restore"
+  },
+  "restoreTitle": {
+    "message": "Flit backup file (.json)"
+  },
+  "restoreSub": {
+    "message": "Settings are replaced; links are added to your folder and none are deleted; an image becomes your background."
+  },
+  "importBtn": {
+    "message": "Choose file…"
+  },
+  "imported": {
+    "message": "Restored: $1"
+  },
+  "doneSettings": {
+    "message": "settings"
+  },
+  "doneLinks": {
+    "message": "$1 new links"
+  },
+  "doneImage": {
+    "message": "background image"
+  },
+  "rsSettings": {
+    "message": "Appearance, background and behavior go back to defaults"
+  },
+  "rsImagesTitle": {
+    "message": "Background images"
+  },
+  "rsImages": {
+    "message": "Your image and the Bing image are deleted; access to bing.com is removed"
+  },
+  "rsFolderTitle": {
+    "message": "Folder choice"
+  },
+  "rsFolder": {
+    "message": "Flit forgets which folder it uses and shows the welcome screen again"
+  },
+  "rsNote": {
+    "message": "Your bookmarks are never deleted."
+  },
+  "resetAsk": {
+    "message": "Reset the selected items?"
+  },
+  "version": {
+    "message": "Version $1"
+  },
+  "rate": {
+    "message": "Rate on the Chrome Web Store"
+  },
+  "source": {
+    "message": "Source code on GitHub"
+  },
+  "report": {
+    "message": "Report a problem or suggest an idea"
+  },
+  "madeBy": {
+    "message": "Made by Burak Garcı"
+  },
+  "fine": {
+    "message": "MIT License · Photos from Unsplash, credited to each photographer"
+  },
+  "openAll": {
+    "message": "Open all ($1)"
+  },
+  "manage": {
+    "message": "Open in Bookmark Manager"
+  },
+  "changeBg": {
+    "message": "Change background"
   }
 }

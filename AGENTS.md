@@ -45,6 +45,10 @@ Simple purpose, simple architecture, simple design, simple code. Every change sh
 
 **Add a wallpaper** — the full image as `ext/wallpapers/<id>.webp`, a 480×270 thumbnail in `wallpapers/thumbs/`, and an entry in `wallpapers.json` (`author`/`username` for credit; `null` username hides it).
 
+## Privacy text
+
+The policy lives in two places: `PRIVACY.md` (the store links to it) and the Privacy section of `newtab.html` (one `.doc[data-lang]` block per language). Change both together, and update them whenever a permission or network request changes.
+
 ## Checks
 
 ```sh

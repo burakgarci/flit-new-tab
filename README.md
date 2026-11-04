@@ -23,7 +23,7 @@ Works in Chrome, Edge, Brave, Arc and other Chromium browsers (version 120+).
 
 ## Privacy
 
-No accounts, no analytics, no remote code. Settings live in Chrome's storage; the only optional network request is Bing's image of the day, after you turn it on. See [privacy.html](ext/privacy.html).
+No accounts, no analytics, no remote code. Settings live in Chrome's storage; the only optional network request is Bing's image of the day, after you turn it on. Full policy: [PRIVACY.md](PRIVACY.md) (also in Settings › Privacy).
 
 ## Development
 

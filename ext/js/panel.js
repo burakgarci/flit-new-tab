@@ -18,10 +18,13 @@ export const close = () => P.open && P.close();
 export const toggle = c => (P.open ? close() : open(c));
 P.addEventListener('close', () => location.hash && history.replaceState(null, '', location.pathname));
 P.querySelector('[data-close]').onclick = close;
-addEventListener('keydown', e => { if (e.key === 'Escape' && !$('#dlg').open) close(); });
+const pickerOpen = () => { try { return !!P.querySelector('select:open'); } catch { return false; } };
+addEventListener('keydown', e => { if (e.key === 'Escape' && !$('#dlg').open && !pickerOpen()) close(); });   // Esc closes an open list first
 document.addEventListener('pointerdown', e => { if (P.open && !at(e).closest('#panel, #gear, #toast, #menu, #dlg')) close(); });
 
-$('#cats').onclick = e => { const b = e.target.closest('[data-cat]'); if (b) { cat = b.dataset.cat; sync(); } };
+const body = P.querySelector('.body');
+body.addEventListener('scroll', () => body.classList.toggle('scrolled', body.scrollTop > 2), { passive: true });
+$('#cats').onclick = e => { const b = e.target.closest('[data-cat]'); if (b && b.dataset.cat !== cat) { cat = b.dataset.cat; body.scrollTop = 0; sync(); } };
 $('#bg-tabs').onclick = e => { const b = e.target.closest('[data-tab]'); if (b) { bgTab = b.dataset.tab; sync(); } };   // view only
 
 function change(k, v) {
@@ -37,6 +40,7 @@ P.querySelectorAll('.seg[data-key]').forEach(seg => seg.addEventListener('click'
 }));
 P.querySelectorAll('input[data-key]').forEach(i =>
   i.addEventListener('input', () => change(i.dataset.key, i.type === 'checkbox' ? i.checked : +i.value)));
+const fill = r => r.style.setProperty('--p', ((r.value - r.min) / (r.max - r.min)) * 100 + '%');   // accent up to the thumb
 
 /* Galleries */
 const named = (b, id, key) => { b.dataset.id = id; b.dataset.i18nTitle = key; b.title = t(key); b.ariaLabel = t(key); return b; };
@@ -83,41 +87,84 @@ async function folders() {
   $('#folder').replaceChildren(...out.map(([id, p]) => new Option(p, id, false, id === L.folderId)));
 }
 
-/* Data — reset never touches bookmarks */
-$('#export').onclick = () => {
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(new Blob([JSON.stringify({ flit: 2, settings: S }, null, 2)], { type: 'application/json' }));
-  a.download = 'flit-settings.json'; a.click();
+/* Data — backup, restore, reset. Bookmarks are never deleted. */
+const checked = attr => Object.fromEntries([...P.querySelectorAll(`[${attr}]`)].map(i => [i.getAttribute(attr), i.checked]));
+const asDataUrl = blob => new Promise(r => { const f = new FileReader(); f.onload = () => r(f.result); f.readAsDataURL(blob); });
+async function dataInfo() {
+  $('#ex-links').textContent = t('exLinks', L.nodes.length);
+  const img = P.querySelector('[data-ex=image]');
+  img.disabled = !(await B.getRec('custom'));
+  if (img.disabled) img.checked = false;
+}
+$('#export').onclick = async () => {
+  const ex = checked('data-ex'), out = { flit: 2, date: new Date().toISOString() };
+  if (ex.settings) out.settings = S;
+  if (ex.links) out.links = L.nodes.map(({ title, url }) => ({ title, url }));
+  if (ex.image) { const rec = await B.getRec('custom'); if (rec) out.image = await asDataUrl(rec.blob); }
+  const a = h('a', { download: `flit-backup-${out.date.slice(0, 10)}.json` });
+  a.href = URL.createObjectURL(new Blob([JSON.stringify(out, null, 2)], { type: 'application/json' }));
+  a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
 };
 $('#import').onchange = async e => {
-  try {
-    const j = JSON.parse(await e.target.files[0].text());
-    if (!j || typeof j.settings !== 'object') throw 0;
-    replace(j.settings); save({}); toast(t('imported'));
-  } catch { toast(t('badFile')); }
-  e.target.value = '';
+  const file = e.target.files[0]; e.target.value = '';
+  let j;
+  try { j = JSON.parse(await file.text()); if (!j || typeof j !== 'object' || !(j.settings || j.links || j.image)) throw 0; }
+  catch { return toast(t('badFile')); }
+  const done = [];
+  if (j.settings && typeof j.settings === 'object') { replace(j.settings); save({}); done.push(t('doneSettings')); }
+  if (Array.isArray(j.links) && L.folderId) {
+    const have = new Set(L.nodes.map(n => n.url));
+    let n = 0;
+    for (const l of j.links) {
+      const url = L.fixUrl(l?.url);
+      if (!url || have.has(url)) continue;
+      await chrome.bookmarks.create({ parentId: L.folderId, title: String(l.title || '') || L.host(url), url });
+      have.add(url); n++;
+    }
+    done.push(t('doneLinks', n));
+  }
+  if (typeof j.image === 'string' && j.image.startsWith('data:image/')) {
+    await B.setCustom(await (await fetch(j.image)).blob(), !j.settings);
+    done.push(t('doneImage'));
+  }
+  toast(t('imported', done.join(', ')));
+  dataInfo();
 };
-async function resetAll() {
-  await chrome.storage.sync.remove(['settings', 'folderName']);
-  await chrome.storage.local.clear();
-  await chrome.permissions.remove(B.BING).catch(() => {});
-  Object.keys(localStorage).filter(k => k.startsWith('flit:')).forEach(k => localStorage.removeItem(k));
-  await new Promise(r => { const q = indexedDB.deleteDatabase('flit'); q.onsuccess = q.onerror = q.onblocked = r; });
+async function reset(rs) {
+  if (rs.settings) { await chrome.storage.sync.remove('settings'); localStorage.removeItem('flit:s'); }
+  if (rs.images) {
+    await chrome.permissions.remove(B.BING).catch(() => {});
+    await new Promise(r => { const q = indexedDB.deleteDatabase('flit'); q.onsuccess = q.onerror = q.onblocked = r; });
+    if (!rs.settings && /^(custom|bing)$/.test(S.bg.image)) {      // don't leave the page pointing at a deleted image
+      const s = F.merge(S, { bg: { image: F.D.bg.image } });
+      localStorage.setItem('flit:s', JSON.stringify(s));
+      await chrome.storage.sync.set({ settings: s });
+    }
+  }
+  if (rs.folder) { await chrome.storage.sync.remove('folderName'); await chrome.storage.local.clear(); localStorage.removeItem('flit:links'); }
   location.replace(location.pathname);
 }
-$('#reset').onclick = () => toast(t('resetAsk'), t('reset'), resetAll, 8000);
+const rsBox = () => { const rs = checked('data-rs'); $('#reset').disabled = !Object.values(rs).some(Boolean); return rs; };
+P.querySelectorAll('[data-rs]').forEach(i => (i.onchange = rsBox));
+$('#reset').onclick = () => { const rs = rsBox(); toast(t('resetAsk'), t('reset'), () => reset(rs), 8000); };
 
 /* About */
-$('#ver').textContent = 'v' + chrome.runtime.getManifest().version;
 const logo = () => buildLogo($('#replay'), true);
 logo(); document.addEventListener('flit:lang', logo);
 $('#replay').onclick = () => play($('#replay'));
 
+const VERSION = chrome.runtime.getManifest().version;
 function sync() {
   if (!P.open) return;
+  $('#ver').textContent = t('version', VERSION);
+  const l = document.documentElement.lang;                // privacy text: the page language, else English
+  const docs = [...P.querySelectorAll('.doc[data-lang]')];
+  docs.forEach(d => (d.hidden = d.dataset.lang !== (docs.some(x => x.dataset.lang === l) ? l : 'en')));
+  if (cat === 'data') dataInfo();
   P.querySelectorAll('[data-cat]').forEach(e => (e.tagName === 'SECTION' ? (e.hidden = e.dataset.cat !== cat) : e.classList.toggle('on', e.dataset.cat === cat)));
   P.querySelectorAll('.seg[data-key]').forEach(seg => seg.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.v === String(get(seg.dataset.key)))));
   P.querySelectorAll('input[data-key]').forEach(i => (i.type === 'checkbox' ? (i.checked = !!get(i.dataset.key)) : (i.value = get(i.dataset.key))));
+  P.querySelectorAll('input[type=range]').forEach(fill);
   const b = S.bg;
   $('#bg-tabs').querySelectorAll('button').forEach(e => e.classList.toggle('on', e.dataset.tab === bgTab));
   ['image', 'gradient', 'color'].forEach(m => ($('#g-' + m).hidden = bgTab !== m));
@@ -129,4 +176,5 @@ function sync() {
   $('#lang').value = S.lang;
 }
 document.addEventListener('flit:bg', sync);
+document.addEventListener('flit:lang', sync);
 onChange(sync);

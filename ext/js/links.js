@@ -118,7 +118,14 @@ document.addEventListener('contextmenu', e => {
     null,
     [t('delete'), () => del(n), 'danger']
   ]);
-  else if (folderId) menu(e.clientX, e.clientY, [[t('addLink'), () => edit()], [t('settings'), () => settings()]]);
+  else if (folderId) menu(e.clientX, e.clientY, [
+    [t('addLink'), () => edit()],
+    nodes.length > 1 && [t('openAll', nodes.length), () => nodes.forEach(n => chrome.tabs.create({ url: n.url, active: false }))],
+    [t('manage'), () => chrome.tabs.create({ url: 'chrome://bookmarks/?id=' + folderId })],
+    null,
+    [t('changeBg'), () => settings('bg')],
+    [t('settings'), () => settings()]
+  ].filter(x => x !== false));
 });
 document.addEventListener('click', e => { if (at(e).closest('#add-tile')) edit(); });
 

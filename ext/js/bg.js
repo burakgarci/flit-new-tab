@@ -17,8 +17,8 @@ const idb = (mode, fn) => new Promise((res, rej) => {
     tx.oncomplete = () => res(r.result); tx.onerror = () => rej(tx.error);
   };
 });
-const getRec = k => idb('readonly', s => s.get(k)).catch(() => null);
-const putRec = (k, v) => idb('readwrite', s => s.put(v, k));
+export const getRec = k => idb('readonly', s => s.get(k)).catch(() => null);
+export const putRec = (k, v) => idb('readwrite', s => s.put(v, k));
 const stored = () => S.bg.mode === 'image' && /^(custom|bing)$/.test(S.bg.image);
 const changed = () => document.dispatchEvent(new Event('flit:bg'));
 
@@ -35,7 +35,7 @@ export async function show() { F.bg(S); await showStored(); showCredit(); change
 export const pick = bg => { save({ bg }); show(); };
 
 export const askBg = file => toast(t('setAsBg'), t('yes'), () => setCustom(file), 8000);
-export async function setCustom(file) {
+export async function setCustom(file, use = true) {
   let blob = file;
   try {
     const bm = await createImageBitmap(file), k = Math.min(1, 3840 / bm.width);
@@ -46,17 +46,18 @@ export async function setCustom(file) {
     }
   } catch { return toast(t('badFile')); }
   await putRec('custom', { blob });
-  pick({ mode: 'image', image: 'custom' });
+  if (use) pick({ mode: 'image', image: 'custom' }); else show();
 }
+const ANON = { credentials: 'omit', referrerPolicy: 'no-referrer' };   // nothing about the user goes with the request
 export async function bing(force) {                       // once a day; the new image shows on the next tab
   if (!(await chrome.permissions.contains(BING))) return false;
   const rec = await getRec('bing'), day = new Date().toDateString();
   if (!force && rec?.day === day) return true;
   try {
     const mkt = lang() === 'tr' ? 'tr-TR' : 'en-US';
-    const im = (await (await fetch(`https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=${mkt}`)).json()).images[0];
+    const im = (await (await fetch(`https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=${mkt}`, ANON)).json()).images[0];
     const size = screen.width * devicePixelRatio > 1920 ? '_UHD.jpg' : '_1920x1080.jpg';
-    const blob = await (await fetch('https://www.bing.com' + im.urlbase + size)).blob();
+    const blob = await (await fetch('https://www.bing.com' + im.urlbase + size, ANON)).blob();
     await putRec('bing', { blob, day, credit: { name: im.title || im.copyright, loc: im.copyright, page: im.copyrightlink } });
     return true;
   } catch { return false; }

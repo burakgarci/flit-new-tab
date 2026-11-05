@@ -1,29 +1,58 @@
+<div align="center">
+
+<img src="ext/icons/icon128.png" width="96" alt="">
+
 # Flit New Tab
 
-**Fast Links, Instant Tab.** Your chosen bookmarks on every new tab — instantly, beautifully, privately.
+**Fast Links, Instant Tab.**<br>
+Your favorite bookmarks, the moment you open a tab — fast, beautiful, private.
 
-Flit replaces your browser's new tab page with the links from one bookmark folder. Edit them anywhere in the browser and the page follows; nothing leaves your browser.
+[**Add to Chrome — it's free**](https://chromewebstore.google.com/detail/ojjhpknoaagdmjedhcimcickmmphnnbj)
 
-- **Instant** — the page paints from a local cache before any script runs. No network, no flash, no layout jump.
-- **Your bookmarks** — one folder (“Flit”, under Other bookmarks) holds your links. Rename or move it; Flit keeps track. It syncs with your browser profile like any bookmark.
-- **Quick to manage** — right-click to edit or delete (with undo), paste a URL to add it, drag to reorder, Alt+1–9 to open.
-- **Backgrounds** — bundled photos and abstracts, gradients, solid colors, your own image or Bing's image of the day. Dim and blur to taste.
-- **Your look** — columns or rows, density, position, light/dark/system theme, faded or gray icons, lowercase or uppercase titles.
-- **English and Turkish**, more welcome.
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/v/ojjhpknoaagdmjedhcimcickmmphnnbj?label=Chrome%20Web%20Store&color=0a84ff)](https://chromewebstore.google.com/detail/ojjhpknoaagdmjedhcimcickmmphnnbj)
+[![Users](https://img.shields.io/chrome-web-store/users/ojjhpknoaagdmjedhcimcickmmphnnbj?color=5f2fae)](https://chromewebstore.google.com/detail/ojjhpknoaagdmjedhcimcickmmphnnbj)
+[![License: MIT](https://img.shields.io/badge/license-MIT-0f7d94)](LICENSE)
+
+<img src="docs/banner.webp" alt="Flit New Tab">
+
+</div>
+
+Flit replaces your browser's new tab page with the links from one bookmark folder. Edit them anywhere in the browser and the page follows. No accounts, no feeds, no clutter.
+
+## Features
+
+- **Instant** — the page appears before anything loads. No flash, no waiting.
+- **Your bookmarks** — links live in a normal folder (“Flit”, under Other bookmarks). Rename or move it; Flit keeps track. It syncs like any bookmark.
+- **Quick to manage** — right-click to edit, copy or delete (with undo), paste a link to add it, drag to reorder, Alt+1–9 to open.
+- **Beautiful backgrounds** — photos credited to their photographers, abstract wallpapers, gradients, colors, your own image or Bing's image of the day. Dim and blur to taste.
+- **Your look** — columns or rows, density, position, light/dark/system theme, faded or gray icons, lowercase or UPPERCASE titles.
+- **Back up and restore** — choose what goes in the file: settings, links, your image.
+- **English and Turkish** — more languages welcome.
+
+<table>
+  <tr>
+    <td><img src="docs/links.webp" alt="Links on the Aurora wallpaper"></td>
+    <td><img src="docs/photo.webp" alt="Light theme on a photo, with the photographer card"></td>
+  </tr>
+  <tr>
+    <td><img src="docs/settings.webp" alt="Settings: appearance"></td>
+    <td><img src="docs/backgrounds.webp" alt="Settings: backgrounds"></td>
+  </tr>
+</table>
 
 ## Install
 
-From the Chrome Web Store, or from source:
+**[Chrome Web Store](https://chromewebstore.google.com/detail/ojjhpknoaagdmjedhcimcickmmphnnbj)** — one click. Also works in Edge, Brave, Arc, Opera, Vivaldi and other Chromium browsers (version 120+).
+
+From source:
 
 1. Download or clone this repository.
-2. Open `chrome://extensions`, turn on **Developer mode**.
+2. Open `chrome://extensions` and turn on **Developer mode**.
 3. **Load unpacked** → choose the `ext` folder.
-
-Works in Chrome, Edge, Brave, Arc and other Chromium browsers (version 120+).
 
 ## Privacy
 
-No accounts, no analytics, no remote code. Settings live in the browser's storage; the only optional network request is Bing's image of the day, after you turn it on. Full policy: [PRIVACY.md](PRIVACY.md) (also in Settings › Privacy).
+Flit doesn't collect, sell or share anything. No accounts, analytics, ads, trackers or remote code. By default it makes no requests to the internet; the only optional one is Bing's image of the day, after you turn it on. Full policy: [PRIVACY.md](PRIVACY.md) (also in Settings › Privacy).
 
 ## Development
 

@@ -146,6 +146,9 @@
   "color": {
     "message": "Color"
   },
+  "customColor": {
+    "message": "Custom color"
+  },
   "ownImage": {
     "message": "Your image"
   },

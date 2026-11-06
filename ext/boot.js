@@ -35,6 +35,7 @@
     Object.assign(h.dataset, { theme: light ? 'light' : 'dark', density: s.density, cols: s.cols, flow: s.flow, align: s.align, icons: s.icons, caps: s.caps, fit: s.bg.fit });
     h.style.setProperty('--dim', s.bg.dim);
     h.style.setProperty('--blur', s.bg.blur + 'px');
+    h.style.setProperty('--cols', s.cols);
   };
   apply(s);
   window.FLIT = { D, G, C, s, merge, apply };

@@ -17,6 +17,7 @@ export function translate(root = document) {
   root.querySelectorAll('[data-i18n]').forEach(e => (e.textContent = t(e.dataset.i18n)));
   root.querySelectorAll('[data-i18n-title]').forEach(e => e.setAttribute('aria-label', (e.title = t(e.dataset.i18nTitle))));
   root.querySelectorAll('[data-i18n-ph]').forEach(e => (e.placeholder = t(e.dataset.i18nPh)));
+  root.querySelectorAll('[data-i18n-label]').forEach(e => e.setAttribute('aria-label', t(e.dataset.i18nLabel)));
 }
 let want;
 export async function loadLang() {                      // the latest call wins; the same language again is a no-op

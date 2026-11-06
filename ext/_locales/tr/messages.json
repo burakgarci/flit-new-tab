@@ -146,6 +146,9 @@
   "color": {
     "message": "Renk"
   },
+  "customColor": {
+    "message": "Özel renk"
+  },
   "ownImage": {
     "message": "Kendi resmin"
   },

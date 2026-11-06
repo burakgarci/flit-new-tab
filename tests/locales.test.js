@@ -23,7 +23,7 @@ test('every key used by the page and scripts exists', () => {
   const html = fs.readFileSync(path.join(ext, 'newtab.html'), 'utf8');
   const js = fs.readdirSync(path.join(ext, 'js')).map(f => fs.readFileSync(path.join(ext, 'js', f), 'utf8')).join('\n');
   const used = new Set([
-    ...[...html.matchAll(/data-i18n(?:-title|-ph)?="(\w+)"/g)].map(m => m[1]),
+    ...[...html.matchAll(/data-i18n(?:-title|-ph|-label)?="(\w+)"/g)].map(m => m[1]),
     ...[...js.matchAll(/\bt\('(\w+)'/g)].map(m => m[1])
   ]);
   for (const k of used) assert.ok(en[k], `missing key: ${k}`);

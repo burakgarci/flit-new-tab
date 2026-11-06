@@ -41,6 +41,10 @@ P.querySelectorAll('.seg[data-key]').forEach(seg => seg.addEventListener('click'
 P.querySelectorAll('input[data-key]').forEach(i =>
   i.addEventListener('input', () => change(i.dataset.key, i.type === 'checkbox' ? i.checked : +i.value)));
 const fill = r => r.style.setProperty('--p', ((r.value - r.min) / (r.max - r.min)) * 100 + '%');   // accent up to the thumb
+P.querySelectorAll('.row > .seg').forEach(seg => {               // each choice group is named by its row label
+  const l = seg.previousElementSibling; l.id ||= 'l-' + seg.dataset.key.replace('.', '-');
+  seg.setAttribute('role', 'group'); seg.setAttribute('aria-labelledby', l.id);
+});
 
 /* Galleries */
 const named = (b, id, key) => { b.dataset.id = id; b.dataset.i18nTitle = key; b.title = t(key); b.ariaLabel = t(key); return b; };
@@ -77,14 +81,14 @@ B.WP.then(wp => {
   storedTiles(); sync();
 });
 $('#g-gradient').replaceChildren(...F.G.map((g, i) => {
-  const b = h('button', { style: `background:linear-gradient(135deg,${g[0]},${g[1]})`, onclick: () => B.pick({ mode: 'gradient', gradient: i }) });
+  const b = h('button', { style: `background:linear-gradient(135deg,${g[0]},${g[1]})`, ariaLabel: `${g[0]} – ${g[1]}`, onclick: () => B.pick({ mode: 'gradient', gradient: i }) });
   b.dataset.i = i; return b;
 }));
 const picker = h('input', { type: 'color', hidden: true, oninput: () => B.pick({ mode: 'color', color: picker.value }) });
 $('#g-color').replaceChildren(...F.C.map(c => {
-  const b = h('button', { style: `background:${c}`, onclick: () => B.pick({ mode: 'color', color: c }) });
+  const b = h('button', { style: `background:${c}`, ariaLabel: c, onclick: () => B.pick({ mode: 'color', color: c }) });
   b.dataset.c = c; return b;
-}), h('button', { className: 'pick', onclick: () => { picker.value = S.bg.color; picker.click(); } }), picker);
+}), named(h('button', { className: 'pick', onclick: () => { picker.value = S.bg.color; picker.click(); } }), 'pick', 'customColor'), picker);
 $('#file').onchange = e => { const f = e.target.files[0]; if (f) B.setCustom(f); e.target.value = ''; };
 
 /* Behavior */
@@ -194,6 +198,8 @@ function sync() {
   $('#g-color').querySelectorAll('button[data-c]').forEach(e => e.classList.toggle('on', b.mode === 'color' && e.dataset.c === b.color));
   $('#g-color .pick').classList.toggle('on', b.mode === 'color' && !F.C.includes(b.color));
   $('#lang').value = S.lang;
+  P.querySelectorAll('.seg button, .grid > button:not([data-id=upload])').forEach(e => e.setAttribute('aria-pressed', e.classList.contains('on')));   // the choice is heard, not only seen
+  P.querySelectorAll('#cats [data-cat]').forEach(e => (e.dataset.cat === cat ? e.setAttribute('aria-current', 'true') : e.removeAttribute('aria-current')));
 }
 document.addEventListener('flit:bg', sync);
 document.addEventListener('flit:imgs', storedTiles);

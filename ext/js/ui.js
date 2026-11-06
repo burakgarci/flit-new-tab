@@ -34,24 +34,43 @@ export function ask(text, ok, danger) {
   return new Promise(r => d.addEventListener('close', () => r(d.returnValue === 'ok'), { once: true }));
 }
 
-let toastTimer;
+const toastEl = $('#toast');
+let toastTimer, toastMs = 0;
+const arm = () => { clearTimeout(toastTimer); toastTimer = setTimeout(() => (toastEl.hidden = true), toastMs); };
 export function toast(msg, action, fn, ms = 4500) {
-  const el = $('#toast'), b = el.querySelector('button');
-  el.querySelector('span').textContent = msg;
+  const b = toastEl.querySelector('button');
+  toastEl.querySelector('span').textContent = msg;
   b.hidden = !action; b.textContent = action || '';
-  b.onclick = () => { el.hidden = true; run(fn); };
-  el.hidden = false;
-  clearTimeout(toastTimer); toastTimer = setTimeout(() => (el.hidden = true), ms);
+  b.onclick = () => { toastEl.hidden = true; run(fn); };
+  toastEl.hidden = false;
+  toastMs = ms; arm();
 }
+['pointerenter', 'focusin'].forEach(ev => toastEl.addEventListener(ev, () => clearTimeout(toastTimer)));   // reading it or reaching "Undo" holds it
+['pointerleave', 'focusout'].forEach(ev => toastEl.addEventListener(ev, arm));
 
-const menuEl = () => $('#menu');
+const menuEl = $('#menu');
+let opener = null;
+const hideMenu = back => { if (menuEl.hidden) return; menuEl.hidden = true; if (back) opener?.focus?.(); };
 export function menu(x, y, items) {           // items: [label, fn, className?] or null for a divider
-  const m = menuEl();
-  m.replaceChildren(...items.map(it => it ? h('button', { textContent: it[0], className: it[2] || '', onclick: () => { m.hidden = true; run(it[1]); } }) : h('hr')));
+  const m = menuEl;
+  opener = document.activeElement;
+  m.replaceChildren(...items.map(it => {
+    if (!it) return h('hr');
+    const b = h('button', { textContent: it[0], className: it[2] || '', onclick: () => { hideMenu(true); run(it[1]); } });
+    b.setAttribute('role', 'menuitem');
+    return b;
+  }));
   m.hidden = false;
   const r = m.getBoundingClientRect();         // measured after it is visible
   m.style.left = Math.min(x, innerWidth - r.width - 8) + 'px';
   m.style.top = Math.min(y, innerHeight - r.height - 8) + 'px';
+  m.querySelector('button').focus();
 }
-document.addEventListener('click', e => { if (!at(e).closest('#menu')) menuEl().hidden = true; });
-addEventListener('keydown', e => { if (e.key === 'Escape') menuEl().hidden = true; });
+menuEl.addEventListener('keydown', e => {      // arrows move; Tab and Esc close and go back to the tile
+  const b = [...menuEl.querySelectorAll('button')], i = b.indexOf(document.activeElement);
+  const n = { ArrowDown: i + 1, ArrowUp: i - 1, Home: 0, End: -1 }[e.key];
+  if (n !== undefined) { e.preventDefault(); b.at(n % b.length).focus(); }
+  else if (e.key === 'Tab') { e.preventDefault(); hideMenu(true); }
+});
+document.addEventListener('click', e => { if (!at(e).closest('#menu')) hideMenu(); });
+addEventListener('keydown', e => { if (e.key === 'Escape') hideMenu(true); });

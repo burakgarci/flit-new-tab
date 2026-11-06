@@ -86,6 +86,33 @@ test('edge cases', { skip: !chromium && 'playwright not installed', timeout: 600
     assert.strictEqual(await page.getAttribute('html', 'data-theme'), 'dark');
     assert.strictEqual(await page.locator('.tile[data-id]').count(), 3);
 
+    // Keyboard: a visible ring on tiles; the menu takes focus, arrows move, Esc goes back to the tile
+    await page.evaluate(() => document.activeElement?.blur());
+    await page.keyboard.press('Tab');
+    assert.ok(await page.evaluate(() => document.activeElement.matches('.tile') && getComputedStyle(document.activeElement).outlineStyle !== 'none'));
+    await page.keyboard.press('Shift+F10');
+    assert.ok(await page.evaluate(() => document.activeElement.matches('#menu [role=menuitem]:first-child')));
+    await page.keyboard.press('ArrowUp');
+    assert.ok(await page.evaluate(() => document.activeElement.matches('#menu [role=menuitem]:last-child')));
+    await page.keyboard.press('Escape');
+    assert.ok(await page.evaluate(() => document.querySelector('#menu').hidden && document.activeElement.matches('.tile')));
+
+    // Screen readers hear the chosen option
+    await page.click('#gear');
+    await page.click('#cats [data-cat=look]');
+    assert.strictEqual(await page.getAttribute('.seg[data-key=caps] [aria-pressed=true]', 'data-v'), 'upper');
+    assert.ok(await page.getAttribute('.seg[data-key=caps]', 'aria-labelledby'));
+    await page.keyboard.press('Escape');
+
+    // A fixed column count gives way in a narrow window
+    await page.evaluate(async () => (await import('./js/store.js')).save({ cols: 6 }));
+    await page.setViewportSize({ width: 600, height: 700 });
+    assert.ok(await page.evaluate(() => document.querySelector('.tile[data-id]').offsetWidth >= 150));
+    await page.evaluate(async () => (await import('./js/store.js')).save({ flow: 'row' }));
+    assert.ok(await page.evaluate(() => document.querySelector('.tile[data-id]').offsetWidth >= 150));
+    await page.setViewportSize({ width: 1600, height: 900 });
+    assert.strictEqual(await page.evaluate(() => getComputedStyle(document.getElementById('links')).gridTemplateColumns.split(' ').length), 6);
+
     // Opening a tab writes nothing to storage
     const quiet = await open(() => {
       window.writes = [];

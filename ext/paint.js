@@ -4,7 +4,8 @@
   const fav = u => chrome.runtime.getURL('/_favicon/') + '?pageUrl=' + encodeURIComponent(u) + '&size=32';
   const host = u => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch { return u; } };
 
-  F.safe = u => /^(https?|file|ftp|chrome|edge|brave|vivaldi|opera|about):/i.test(u);   // never javascript:, data:, blob:
+  F.SAFE = /^(https?|file|ftp|chrome|edge|brave|vivaldi|opera|about):$/i;   // never javascript:, data:, blob:
+  F.safe = u => { try { return F.SAFE.test(new URL(u).protocol); } catch { return false; } };
   F.tile = n => {
     const a = document.createElement('a');
     a.className = 'tile g'; a.href = n.url; a.draggable = true;

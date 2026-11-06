@@ -10,7 +10,7 @@ let dict = {}, base = {};                                // base = English, used
 const load = l => fetch(`_locales/${l}/messages.json`).then(r => r.json()).catch(() => ({}));
 export const t = (k, ...a) => {
   let m = dict[k]?.message ?? base[k]?.message ?? k;
-  a.forEach((v, i) => (m = m.replace('$' + (i + 1), v)));
+  a.forEach((v, i) => (m = m.replace('$' + (i + 1), () => v)));   // a function, so "$&" in a folder name stays as typed
   return m;
 };
 export function translate(root = document) {
@@ -18,10 +18,14 @@ export function translate(root = document) {
   root.querySelectorAll('[data-i18n-title]').forEach(e => e.setAttribute('aria-label', (e.title = t(e.dataset.i18nTitle))));
   root.querySelectorAll('[data-i18n-ph]').forEach(e => (e.placeholder = t(e.dataset.i18nPh)));
 }
-export async function loadLang() {
+let want;
+export async function loadLang() {                      // the latest call wins; the same language again is a no-op
   const l = lang();
-  [dict, base] = await Promise.all([load(l), l === 'en' ? null : load('en')]);
-  base ||= dict;
+  if (l === want) return;
+  want = l;
+  const [d, b] = await Promise.all([load(l), l === 'en' ? null : load('en')]);
+  if (want !== l) return;
+  dict = d; base = b || d;
   document.documentElement.lang = l;
   translate();
   document.dispatchEvent(new Event('flit:lang'));

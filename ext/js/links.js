@@ -1,6 +1,6 @@
 // Bookmarks: the folder is tracked by id; tiles follow every change made anywhere in Chrome.
 import { S } from './store.js';
-import { $, at, toast, menu, ask, settings } from './ui.js';
+import { $, at, toast, menu, ask, settings, run } from './ui.js';
 import { t } from './i18n.js';
 import { askBg } from './bg.js';
 
@@ -11,14 +11,18 @@ export const onLost = fn => (lost = fn);              // folder deleted and no o
 
 const isFolder = n => n && !n.url;
 export const host = u => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch { return u; } };
-export const fixUrl = v => {
+export const fixUrl = v => {                            // only addresses a tile can show; "localhost:3000" is a host, not a scheme
   v = (v || '').trim();
   if (!v || /\s/.test(v)) return '';
-  if (!/^[a-z][\w+.-]*:/i.test(v)) v = 'https://' + v;
-  try { const u = new URL(v); return /^https?:$/.test(u.protocol) && !u.hostname.includes('.') ? '' : u.href; } catch { return ''; }
+  if (!/^[a-z][\w+.-]*:(?!\d)/i.test(v)) v = 'https://' + v;
+  try {
+    const u = new URL(v), host = u.hostname;
+    if (!F.SAFE.test(u.protocol)) return '';
+    return /^https?:$/.test(u.protocol) && !/[.[]/.test(host) && host !== 'localhost' ? '' : u.href;
+  } catch { return ''; }
 };
 export const list = () => nodes.map(({ id, index, title, url }) => ({ id, index, title, url }));
-export const render = () => F.render(list(), !!folderId);
+export const render = () => folderId && F.render(list(), true);   // before boot() the cached tiles stay
 
 async function findFolder() {
   const { folderId: id } = await chrome.storage.local.get('folderId');
@@ -30,10 +34,11 @@ async function findFolder() {
   }
   return null;
 }
-export async function useFolder(n) {
+export async function useFolder(n) {                    // write only on change: sync allows 120 writes a minute
   folderId = n.id;
-  await chrome.storage.local.set({ folderId: n.id });
-  await chrome.storage.sync.set({ folderName: n.title });
+  const [{ folderId: id }, { folderName }] = await Promise.all([chrome.storage.local.get('folderId'), chrome.storage.sync.get('folderName')]);
+  if (id !== n.id) await chrome.storage.local.set({ folderId: n.id });
+  if (folderName !== n.title) await chrome.storage.sync.set({ folderName: n.title });
 }
 export async function refresh() {
   const kids = folderId && (await chrome.bookmarks.getChildren(folderId).catch(() => null));
@@ -50,6 +55,8 @@ export async function boot() {                          // returns the folder, o
   return n;
 }
 export async function create() {                        // "Other bookmarks" › Flit, filled with top sites
+  const have = await findFolder();                      // a retry, or another tab got there first
+  if (have) { await useFolder(have); return refresh(); }
   const roots = (await chrome.bookmarks.getTree())[0].children;
   const other = roots.filter(r => r.folderType === 'other').sort((a, b) => b.syncing - a.syncing)[0]
     || roots.find(r => r.id === '2') || roots[roots.length > 1 ? 1 : 0];
@@ -57,7 +64,7 @@ export async function create() {                        // "Other bookmarks" ›
   let top = [];
   try { top = await chrome.topSites.get(); } catch {}
   for (const s of top.filter(s => fixUrl(s.url)).slice(0, 8))
-    await chrome.bookmarks.create({ parentId: f.id, title: String(s.title || '').slice(0, 300), url: fixUrl(s.url) });
+    await chrome.bookmarks.create({ parentId: f.id, title: String(s.title || '').slice(0, 300), url: fixUrl(s.url) }).catch(() => {});
   await useFolder(f);
   await refresh();
 }
@@ -71,7 +78,7 @@ let later;
 const soon = () => { clearTimeout(later); later = setTimeout(() => refresh().catch(() => {}), 60); };
 const mine = (...ids) => folderId && ids.includes(folderId);
 chrome.bookmarks.onCreated.addListener((id, n) => mine(n.parentId) && soon());
-chrome.bookmarks.onRemoved.addListener((id, i) => (id === folderId ? boot().then(n => n || lost()).catch(() => {}) : mine(i.parentId) && soon()));
+chrome.bookmarks.onRemoved.addListener(id => (id === folderId ? boot().then(n => n || lost()).catch(() => {}) : folderId && soon()));   // a removed parent takes ours too
 chrome.bookmarks.onChanged.addListener((id, c) => (id === folderId ? chrome.storage.sync.set({ folderName: c.title }) : soon()));
 chrome.bookmarks.onMoved.addListener((id, m) => (id === folderId ? soon() : mine(m.parentId, m.oldParentId) && soon()));
 chrome.bookmarks.onChildrenReordered.addListener(id => mine(id) && soon());
@@ -79,8 +86,8 @@ chrome.bookmarks.onImportEnded.addListener(soon);
 
 export async function add(url, title) {
   if (!folderId) return;
-  await chrome.bookmarks.create({ parentId: folderId, url, title: title || host(url) });
-  toast(t('added'));
+  try { await chrome.bookmarks.create({ parentId: folderId, url, title: title || host(url) }); toast(t('added')); }
+  catch { toast(t('failed')); }
 }
 async function del(n) {
   await chrome.bookmarks.remove(n.id);
@@ -98,7 +105,8 @@ export function edit(n) {
     if (dlg.returnValue !== 'ok') return;
     const url = fixUrl(fUrl.value), title = fTitle.value.trim() || host(url);
     if (!url) return toast(t('badUrl'));
-    if (n) await chrome.bookmarks.update(n.id, { title, url }); else await add(url, title);
+    if (!n) return add(url, title);
+    await chrome.bookmarks.update(n.id, { title, url }).catch(() => toast(t('failed')));
   };
   dlg.showModal();
   (n ? fTitle : fUrl).focus();
@@ -131,7 +139,7 @@ document.addEventListener('contextmenu', e => {
 document.addEventListener('click', e => {
   if (at(e).closest('#add-tile')) return edit();
   const a = at(e).closest('.tile[href]');                 // chrome://, file:// … can't be opened by a plain link from this page
-  if (a && !web(a.href) && e.button === 0) { e.preventDefault(); open(a.href); }
+  if (a && !web(a.href) && e.button === 0) { e.preventDefault(); run(() => open(a.href)); }
 });
 
 /* Drag to reorder; drop a link to add it, an image to use it as background */
@@ -181,5 +189,5 @@ document.addEventListener('paste', e => {
 });
 addEventListener('keydown', e => {
   const d = /^Digit([1-9])$/.exec(e.code);              // e.code: works on every keyboard layout
-  if (d && S.keys && e.altKey && !e.ctrlKey && !e.metaKey && nodes[d[1] - 1]) { e.preventDefault(); open(nodes[d[1] - 1].url); }
+  if (d && S.keys && e.altKey && !e.ctrlKey && !e.metaKey && nodes[d[1] - 1]) { e.preventDefault(); const { url } = nodes[d[1] - 1]; run(() => open(url)); }
 });

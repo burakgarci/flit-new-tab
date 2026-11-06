@@ -1,4 +1,5 @@
 // Small DOM helpers shared by every module.
+import { t } from './i18n.js';
 export const $ = q => document.querySelector(q);
 export const at = e => (e.target instanceof Element ? e.target : document.body);   // document-level events have no .closest
 export const h = (tag, props = {}, ...kids) => {
@@ -16,12 +17,16 @@ export const ICONS = {
   sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>'
 };
 
+// User actions: a failure says so instead of a silent console error.
+export const run = fn => Promise.resolve().then(fn).catch(() => toast(t('failed')));
+
 // Settings live in a lazily loaded module: nothing of it is parsed until the first open.
 export const settings = (cat, toggle) => import('./panel.js').then(m => (toggle ? m.toggle(cat) : m.open(cat)));
 
 // Questions that need an answer (open many tabs, reset, replace the background) get a small alert; everything else is a toast.
 export function ask(text, ok, danger) {
   const d = $('#ask'), b = d.querySelector('[value=ok]');
+  if (d.open) return Promise.resolve(false);              // one question at a time
   d.querySelector('p').textContent = text;
   b.textContent = ok; b.classList.toggle('danger', !!danger);
   d.returnValue = '';
@@ -34,7 +39,7 @@ export function toast(msg, action, fn, ms = 4500) {
   const el = $('#toast'), b = el.querySelector('button');
   el.querySelector('span').textContent = msg;
   b.hidden = !action; b.textContent = action || '';
-  b.onclick = () => { el.hidden = true; fn(); };
+  b.onclick = () => { el.hidden = true; run(fn); };
   el.hidden = false;
   clearTimeout(toastTimer); toastTimer = setTimeout(() => (el.hidden = true), ms);
 }
@@ -42,7 +47,7 @@ export function toast(msg, action, fn, ms = 4500) {
 const menuEl = () => $('#menu');
 export function menu(x, y, items) {           // items: [label, fn, className?] or null for a divider
   const m = menuEl();
-  m.replaceChildren(...items.map(it => it ? h('button', { textContent: it[0], className: it[2] || '', onclick: () => { m.hidden = true; it[1](); } }) : h('hr')));
+  m.replaceChildren(...items.map(it => it ? h('button', { textContent: it[0], className: it[2] || '', onclick: () => { m.hidden = true; run(it[1]); } }) : h('hr')));
   m.hidden = false;
   const r = m.getBoundingClientRect();         // measured after it is visible
   m.style.left = Math.min(x, innerWidth - r.width - 8) + 'px';

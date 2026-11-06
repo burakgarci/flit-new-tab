@@ -7,12 +7,15 @@ export const get = k => k.split('.').reduce((o, p) => o?.[p], S);
 export const patchOf = (k, v) => { const [a, b] = k.split('.'); return b ? { [a]: { [b]: v } } : { [a]: v }; };
 
 const keep = () => { F.s = S; localStorage.setItem('flit:s', JSON.stringify(S)); F.apply(S); };
-let syncTimer;
+let syncTimer = 0;
+const flush = () => { if (!syncTimer) return; clearTimeout(syncTimer); syncTimer = 0; chrome.storage.sync.set({ settings: S }).catch(() => {}); };
 export function save(patch) {
   S = F.merge(S, patch); keep();
   clearTimeout(syncTimer);                              // sliders fire often; sync allows 120 writes/min
-  syncTimer = setTimeout(() => chrome.storage.sync.set({ settings: S }), 400);
+  syncTimer = setTimeout(flush, 400);
 }
+addEventListener('pagehide', flush);                    // closing the tab or opening a link keeps the last change
+document.addEventListener('visibilitychange', () => document.hidden && flush());
 export function replace(next) {
   S = F.merge(F.D, next); keep();
   subs.forEach(fn => fn());

@@ -31,7 +31,7 @@ function change(k, v) {
   save(patchOf(k, v));
   if (k === 'lang') loadLang();
   if (k === 'newTab' || k === 'addTile') L.render();
-  if (k.startsWith('bg.') || k === 'credit') B.show();
+  if (k === 'credit') B.showCredit();                      // fit, dim and blur are CSS only (boot.js apply)
   sync();
 }
 P.querySelectorAll('.seg[data-key]').forEach(seg => seg.addEventListener('click', e => {
@@ -47,7 +47,7 @@ const named = (b, id, key) => { b.dataset.id = id; b.dataset.i18nTitle = key; b.
 async function bingClick() {
   if (!(await chrome.permissions.request(B.BING))) return;   // must come first: it needs the click
   if (!(await B.getRec('bing'))) toast(t('loading'));
-  if (await B.bing()) B.pick({ mode: 'image', image: 'bing' }); else toast(t('bingFail'));
+  if (await B.bing(true)) B.pick({ mode: 'image', image: 'bing' }, true); else toast(t('bingFail'));
 }
 const tile = (ico, id, key, onclick) => {
   const label = h('span', { textContent: t(key) }); label.dataset.i18n = key;
@@ -195,6 +195,7 @@ function sync() {
   $('#g-color .pick').classList.toggle('on', b.mode === 'color' && !F.C.includes(b.color));
   $('#lang').value = S.lang;
 }
-document.addEventListener('flit:bg', () => { sync(); storedTiles(); });
+document.addEventListener('flit:bg', sync);
+document.addEventListener('flit:imgs', storedTiles);
 document.addEventListener('flit:lang', sync);
 onChange(sync);

@@ -43,7 +43,7 @@ Simple purpose, simple architecture, simple design, simple code. Every change sh
 
 **Add a language** — copy `_locales/en`, translate, add it to `LANGS` in `i18n.js`.
 
-**Add a wallpaper** — the full image as `ext/wallpapers/<id>.webp`, a 480×270 thumbnail in `wallpapers/thumbs/`, and an entry in `wallpapers.json` (`author`/`username` for credit; `null` username hides it).
+**Add a wallpaper** — the full image (up to 3840px wide) as `ext/wallpapers/<id>.webp`, a copy at most 2560px wide in `wallpapers/2560/` (the page picks it unless the screen needs more), a 480×270 thumbnail in `wallpapers/thumbs/`, and an entry in `wallpapers.json` (`author`/`username` for credit; `null` username hides it).
 
 ## Privacy text
 

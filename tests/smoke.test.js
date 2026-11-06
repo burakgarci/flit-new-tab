@@ -21,6 +21,7 @@ test('new tab works end to end', { skip: !chromium && 'playwright not installed'
     const page = await ctx.newPage();
     page.on('pageerror', e => errors.push(e.message));
     page.on('console', m => m.type() === 'error' && errors.push(m.text()));
+    await page.addInitScript(() => { chrome.permissions.request = async () => false; });   // headless can't answer the most-visited prompt: say no
     await page.goto('chrome://newtab/');
 
     // First run: welcome, then a "Flit" folder is created

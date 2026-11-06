@@ -25,10 +25,16 @@ test('edge cases', { skip: !chromium && 'playwright not installed', timeout: 600
     return p;
   };
   try {
-    let page = await open();
+    let page = await open(() => { chrome.permissions.request = async () => false; });   // headless can't answer the most-visited prompt
     await page.click('#start');
     await page.waitForSelector('#welcome', { state: 'hidden' });
     const id = await page.evaluate(async () => (await chrome.storage.local.get('folderId')).folderId);
+    assert.strictEqual(await page.evaluate(() => chrome.permissions.contains({ permissions: ['topSites'] })), false);
+
+    // Bundled wallpapers: the 2560px copy on an ordinary screen, the thumbnail for the blurred fill
+    await page.waitForFunction(() => document.getElementById('bg-img').classList.contains('on'));
+    assert.match(await page.evaluate(() => document.getElementById('bg-img').currentSrc), /\/wallpapers\/2560\/abstract-aurora\.webp$/);
+    assert.match(await page.getAttribute('#bg-fill', 'src'), /^wallpapers\/thumbs\//);
     await page.evaluate(async id => {
       for (const n of await chrome.bookmarks.getChildren(id)) await chrome.bookmarks.remove(n.id);
       for (const n of ['one', 'two', 'three']) await chrome.bookmarks.create({ parentId: id, title: n, url: `https://${n}.example/` });
@@ -61,6 +67,7 @@ test('edge cases', { skip: !chromium && 'playwright not installed', timeout: 600
     });
     await page.waitForFunction(() => document.getElementById('bg-img').classList.contains('on'));
     const src = await page.getAttribute('#bg-img', 'src');
+    assert.ok(src.startsWith('blob:') && !(await page.getAttribute('#bg-img', 'srcset')));
     await page.click('#gear');
     await page.click('#cats [data-cat=bg]');
     for (const v of ['0.3', '0.5']) await page.fill('input[data-key="bg.dim"]', v);

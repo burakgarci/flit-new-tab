@@ -8,7 +8,8 @@
   "minimum_chrome_version": "120",
   "chrome_url_overrides": { "newtab": "newtab.html" },
   "options_ui": { "page": "options.html", "open_in_tab": true },
-  "permissions": ["bookmarks", "storage", "favicon", "topSites"],
+  "permissions": ["bookmarks", "storage", "favicon"],
+  "optional_permissions": ["topSites"],
   "optional_host_permissions": ["https://www.bing.com/*"],
   "icons": { "16": "icons/icon16.png", "32": "icons/icon32.png", "48": "icons/icon48.png", "128": "icons/icon128.png" }
 }

@@ -32,13 +32,18 @@
     const b = s.bg;
     bg.style.background = b.mode === 'gradient' ? `linear-gradient(135deg, ${F.G[b.gradient]?.[0]}, ${F.G[b.gradient]?.[1]})`
       : b.mode === 'color' ? b.color : '';
-    if (b.mode !== 'image') { img.removeAttribute('src'); fill.removeAttribute('src'); img.classList.remove('on'); return; }
-    src = src || (/^(custom|bing)$/.test(b.image) ? '' : `wallpapers/${b.image}.webp`);
-    if (!src) return;                                  // custom / bing come from IndexedDB (app.js)
-    if (img.getAttribute('src') === src) return;
+    if (b.mode !== 'image') { img.removeAttribute('srcset'); img.removeAttribute('src'); fill.removeAttribute('src'); img.classList.remove('on'); return; }
+    if (!src && /^(custom|bing)$/.test(b.image)) return;   // custom / bing come from IndexedDB (bg.js)
+    const w = `wallpapers/${b.image}.webp`;
+    if (img.getAttribute('src') === (src || w)) return;
     img.classList.remove('on');
     img.onload = () => img.classList.add('on');
-    img.src = fill.src = src;
+    if (src) { img.removeAttribute('srcset'); fill.src = src; }
+    else {                                             // a 2560px copy unless the screen needs more; the blurred fill needs no detail
+      img.srcset = `wallpapers/2560/${b.image}.webp 2560w, ${w} 3840w`;
+      fill.src = `wallpapers/thumbs/${b.image}.webp`;
+    }
+    img.src = src || w;
   };
 
   let links = null;

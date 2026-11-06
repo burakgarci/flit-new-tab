@@ -22,9 +22,10 @@ export function show(n) {
   requestAnimationFrame(() => { W.classList.add('open'); play($('#logo')); });
 }
 go.onclick = async () => {
+  const seed = !found && chrome.permissions.request({ permissions: ['topSites'] }).catch(() => false);   // first: it needs the click
   go.disabled = true;
   try {
-    if (!found) await L.create();
+    if (!found) await L.create(await seed);
     await chrome.storage.local.set({ welcomed: 1 });
   } catch { return toast(t('failed')); }
   finally { go.disabled = false; }

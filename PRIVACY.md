@@ -7,7 +7,7 @@
 ## What Flit uses, and why
 
 - **Bookmarks** — to show, add, edit, reorder and delete links in the one folder you use with Flit. On first run it creates that folder. It never touches other bookmarks, and Reset never deletes any.
-- **Most visited sites** — read once, only when you press “Get started”, to fill the new folder. Not stored or sent anywhere.
+- **Most visited sites** — only if you allow it when you press “Get started”: read once to fill the new folder, then the access is given back. Not stored or sent anywhere.
 - **Storage** — your settings. If your browser's sync is on, the browser copies them to your other devices under its maker's privacy policy (for Chrome, [Google's](https://policies.google.com/privacy)). Your own image and the Bing image are kept only on this device.
 - **Site icons** — come from the browser's own icon cache; Flit never requests them from the sites.
 
@@ -38,7 +38,7 @@ Questions: [GitHub issues](https://github.com/burakgarci/flit-new-tab/issues).
 ### Flit neyi, neden kullanır
 
 - **Yer imleri** — Flit ile kullandığın tek klasördeki bağlantıları göstermek, eklemek, düzenlemek, sıralamak ve silmek için. İlk açılışta bu klasörü oluşturur. Diğer yer imlerine dokunmaz; Sıfırla hiçbirini silmez.
-- **En çok ziyaret edilen siteler** — yalnızca “Başla”ya bastığında, yeni klasörü doldurmak için bir kez okunur. Saklanmaz, hiçbir yere gönderilmez.
+- **En çok ziyaret edilen siteler** — yalnızca “Başla”ya bastığında izin verirsen, yeni klasörü doldurmak için bir kez okunur; ardından izin geri bırakılır. Saklanmaz, hiçbir yere gönderilmez.
 - **Depolama** — ayarların. Tarayıcının senkronizasyonu açıksa tarayıcı bunları, yapımcısının gizlilik politikası kapsamında (Chrome için [Google'ınki](https://policies.google.com/privacy?hl=tr)) diğer cihazlarına kopyalar. Eklediğin resim ve Bing resmi yalnızca bu cihazda tutulur.
 - **Site simgeleri** — tarayıcının kendi simge önbelleğinden gelir; Flit bunları sitelerden istemez.
 

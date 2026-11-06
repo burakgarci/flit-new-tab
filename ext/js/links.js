@@ -54,7 +54,7 @@ export async function boot() {                          // returns the folder, o
   await refresh();
   return n;
 }
-export async function create() {                        // "Other bookmarks" › Flit, filled with top sites
+export async function create(seed) {                    // "Other bookmarks" › Flit, filled with top sites if allowed
   const have = await findFolder();                      // a retry, or another tab got there first
   if (have) { await useFolder(have); return refresh(); }
   const roots = (await chrome.bookmarks.getTree())[0].children;
@@ -62,7 +62,10 @@ export async function create() {                        // "Other bookmarks" ›
     || roots.find(r => r.id === '2') || roots[roots.length > 1 ? 1 : 0];
   const f = await chrome.bookmarks.create({ parentId: other.id, title: 'Flit' });
   let top = [];
-  try { top = await chrome.topSites.get(); } catch {}
+  if (seed) {                                           // read once, then the access is given back
+    try { top = await chrome.topSites.get(); } catch {}
+    chrome.permissions.remove({ permissions: ['topSites'] }).catch(() => {});
+  }
   for (const s of top.filter(s => fixUrl(s.url)).slice(0, 8))
     await chrome.bookmarks.create({ parentId: f.id, title: String(s.title || '').slice(0, 300), url: fixUrl(s.url) }).catch(() => {});
   await useFolder(f);

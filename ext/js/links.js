@@ -27,7 +27,7 @@ export const render = () => folderId && F.render(list(), true);   // before boot
 async function findFolder() {
   const { folderId: id } = await chrome.storage.local.get('folderId');
   if (id) { try { const [n] = await chrome.bookmarks.get(id); if (isFolder(n)) return n; } catch {} }
-  const { folderName } = await chrome.storage.sync.get('folderName');   // another device, or a reinstall
+  const { folderName } = await chrome.storage.sync.get('folderName');   // another device (removing Flit clears this too)
   for (const title of [...new Set([folderName, 'Flit', 'btab'].filter(Boolean))]) {
     const hit = (await chrome.bookmarks.search({ title })).find(isFolder);
     if (hit) return hit;

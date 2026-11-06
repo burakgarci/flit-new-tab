@@ -61,7 +61,7 @@ There is no build step: `ext/` is the extension.
 ```sh
 npm install
 npx playwright install chromium
-npm test          # locale checks + an end-to-end run in Chromium
+npm test          # locale checks + end-to-end and edge-case runs in Chromium
 npm run test:fast # locale checks only
 ```
 

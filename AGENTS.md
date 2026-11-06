@@ -52,8 +52,10 @@ The policy lives in two places: `PRIVACY.md` (the store links to it) and the Pri
 ## Checks
 
 ```sh
-npm test   # locale parity + Chromium end-to-end (needs: npx playwright install chromium)
+npm test   # locale parity, end-to-end and edge cases in Chromium (needs: npx playwright install chromium)
 ```
+
+The browser tests load `ext/` with `--load-extension`, which branded Chrome ignores since 137: use Playwright's Chromium or Chrome for Testing. Headless can't answer permission prompts, so tests stub `chrome.permissions.request` with `addInitScript`.
 
 Load `ext/` unpacked and open a new tab before calling it done: no console errors, no flash on reload, light and dark both readable, English and Turkish both fit.
 

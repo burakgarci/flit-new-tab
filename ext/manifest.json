@@ -3,7 +3,7 @@
   "name": "__MSG_extName__",
   "short_name": "Flit",
   "description": "__MSG_extDesc__",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "default_locale": "en",
   "minimum_chrome_version": "120",
   "chrome_url_overrides": { "newtab": "newtab.html" },
